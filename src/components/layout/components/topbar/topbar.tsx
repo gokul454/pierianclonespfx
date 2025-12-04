@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useContext, useEffect } from "react";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./topbar.css";
 
 import { spContext } from "../../../../App";
@@ -80,9 +80,9 @@ const TopNav: React.FC = () => {
       <div className="top-nav">
 
         <div className="left">
-          <a
-            href="/"
+          <div
             className="logo"
+            onClick={() => navigate("/")}
             style={{
               height: "64px",
               maxHeight: "64px",
@@ -91,6 +91,7 @@ const TopNav: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              cursor: "pointer"
             }}
           >
             <img
@@ -102,7 +103,7 @@ const TopNav: React.FC = () => {
                 objectFit: "contain",
               }}
             />
-          </a>
+          </div>
 
           <p className="insights-nav">Insights to Impact</p>
         </div>

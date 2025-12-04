@@ -313,7 +313,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 145px;
+    position: absolute;
+    top: 374px;
 }
 
 .lp-lead-avatar {
@@ -1323,14 +1324,14 @@
 }
 
 
-.lp-latest-news .lp-viewall{
+.lp-latest-news .lp-viewall {
     color: white !important;
 }
 
-.lp-latest-news .lp-section-header h3{
+.lp-latest-news .lp-section-header h3 {
     color: white !important;
 }
 
-.lp-new-joiners .lp-viewall{
+.lp-new-joiners .lp-viewall {
     color: white !important;
 }

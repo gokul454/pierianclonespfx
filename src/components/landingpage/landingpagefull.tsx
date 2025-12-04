@@ -101,10 +101,10 @@ const LandingPageFull: React.FC = () => {
       const carousal = (await getCarousalData(sp, "MediaGallery")) ?? [];
 
       const mappedCarousel: HeroSlide[] = carousal
-        .filter((item: any) => item.Status === "publish") // only published
+        .filter((item: any) => item.Status === "publish") // fetch only published items
         .map((item: any) => ({
           id: String(item.Id),
-          image: item.ThumbnailURL,   // admin image field
+          image: item.ThumbnailURL,
           title: item.Title,
           subtitle: item.Description
         }));
@@ -166,20 +166,55 @@ const LandingPageFull: React.FC = () => {
         }))
       );
 
-      setLeadershipData((await getLeadershipMessages(sp, "LeadershipMessage")) ?? []);
-      setHrData((await getHRAnnouncements(sp, "HRAnnouncements")) ?? []);
+      const leadershipItems = (await getLeadershipMessages(sp, "LeadershipMessage")) ?? [];
+
+      setLeadershipData(
+        leadershipItems
+          .filter((item: any) => item.Status === "publish")
+          .map((item: any) => ({
+            id: item.ID,
+            message: item.Message,
+            avatar: item.UserImage,
+            name: item.Title,
+            title: item.Designation
+          }))
+      );
+
+
+      const hrItems = (await getHRAnnouncements(sp, "HRAnnouncements")) ?? [];
+
+      const mappedHR = hrItems
+        .filter((item: any) => item.Status === "publish")
+        .map((item: any) => ({
+          id: item.ID,
+          subtitle: item.Title,
+          description: item.Description,
+          date: item.Date,
+          status: item.Status
+        }));
+
+      setHrData(mappedHR);
+
+
       setQuickLinks((await getQuickLinksData(sp, "QuickLinks")) ?? []);
       setJobOpeningData((await getJobOpeningsData(sp, "JobOpenings")) ?? []);
 
-      const onboard = (await getNewgetOnboardEmployee(sp, "EmployeeOnboard")) ?? [];
-      setWelcomeData(
-        onboard.map((item: any) => ({
-          id: item?.UserID ?? "",
-          message: "Welcome to the team!",
+      const onboardItems = (await getNewgetOnboardEmployee(sp, "EmployeeOnboard")) ?? [];
+
+      const mappedOnboard = onboardItems
+        .filter((item: any) => item.Status === "publish") // 🔥 if your list supports publish/unpublish
+        .sort((a: any, b: any) => new Date(b.Created).getTime() - new Date(a.Created).getTime()) // 🔥 newest first
+        .map((item: any) => ({
+          id: item.UserID,
+          message: item.Message || "Welcome to the team!",
           employeeName: item.EmployeeName,
-          employeeImage: item.Image
-        }))
-      );
+          employeeImage: item.Image,
+          designation: item.Designation ?? "",
+          department: item.Department ?? ""
+        }));
+
+      setWelcomeData(mappedOnboard);
+
 
       const recognized = (await getRecognizedEmployees(sp, "RecogonizedEmployee")) ?? [];
       setRecognizedEmployees(

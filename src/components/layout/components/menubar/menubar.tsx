@@ -1,19 +1,7 @@
 import * as React from 'react';
-const { useState, useEffect, useRef, useContext } = React;
+import { useState, useEffect, useContext } from 'react';
 import './menuBar.css';
-import {
-    AdminPortal,
-    BusinessHeads,
-    BusinessLimits,
-    CheckoutReport,
-    CompanyForms,
-    EmployeeDirectory,
-    EmployeeReport,
-    HelpDesk,
-    MarketPlace,
-    More
-} from '../../../../utils/icons/Icons';
-
+import { AdminPortal, BusinessHeads, EmployeeDirectory, HelpDesk } from '../../../../utils/icons/Icons';
 import { useNavigate } from 'react-router-dom';
 import { appsRequired } from '../../../../utils/customSettings';
 import { spContext } from '../../../../App';
@@ -28,68 +16,14 @@ interface App {
 }
 
 const baseApps: App[] = [
-    { icon: <CompanyForms />, title: 'Company Forms', color: '#ec4899', path: '/company-forms' },
-    { icon: <EmployeeReport />, title: 'Employee Report', color: '#f97316' },
-    { icon: <EmployeeDirectory />, title: 'Employee Directory', color: '#eab308', path: '/employee-directory' },
-    { icon: <BusinessHeads />, title: 'Business Units', color: '#3b82f6', path: '/business-units' },
-    { icon: <MarketPlace />, title: 'Marketplace', color: '#6366f1' },
-    { icon: <CheckoutReport />, title: 'Checkout Report', color: '#ec4899' },
-    { icon: <BusinessLimits />, title: 'Business Limits', color: '#f59e0b' },
     { icon: <HelpDesk />, title: 'Help Desk', color: '#3b82f6' },
+    { icon: <BusinessHeads />, title: 'Business Units', color: '#3b82f6', path: '/business-units' },
+    { icon: <EmployeeDirectory />, title: 'Employee Directory', color: '#eab308', path: '/employee-directory' },
     { icon: <AdminPortal />, title: 'Admin Panel', color: '#64748b', path: '/admin' }
 ];
 
-interface MoreDropdownProps {
-    items: App[];
-    onItemClick: (item: App) => void;
-}
 
-const MoreDropdown: React.FC<MoreDropdownProps> = ({ items, onItemClick }) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
-
-    return (
-        <div className="appContainer" ref={dropdownRef} onClick={() => setIsOpen(!isOpen)}>
-            <div className="appIcon" style={{ backgroundColor: '#06b6d4' }}>
-                <More />
-            </div>
-            <p className="appTitle">More</p>
-
-            {isOpen && (
-                <div className="dropdown">
-                    {items.map((app, index) => (
-                        <div
-                            key={index}
-                            className="dropdownItem"
-                            onClick={() => {
-                                onItemClick(app);
-                                setIsOpen(false);
-                            }}
-                        >
-                            <div className="dropdownIcon" style={{ background: app.color }}>
-                                {React.cloneElement(app.icon, {
-                                    style: { fontSize: '16px', color: '#ffffff' }
-                                })}
-                            </div>
-                            <span>{app.title}</span>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-};
 
 const MenuBar: React.FC = () => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -128,25 +62,21 @@ const MenuBar: React.FC = () => {
             window.open(app.path, "_blank");
             return;
         }
-
         if (app.path) navigate(app.path);
     };
 
     useEffect(() => {
-        const updateTime = () => {
-            setCurrentDateTime(formatDateTime());
-        };
-
+        const updateTime = () => setCurrentDateTime(formatDateTime());
         updateTime();
 
         const now = new Date();
-        const msUntilNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+        const ms = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
 
         const timeout = setTimeout(() => {
             updateTime();
             const interval = setInterval(updateTime, 60000);
             return () => clearInterval(interval);
-        }, msUntilNextMinute);
+        }, ms);
 
         return () => clearTimeout(timeout);
     }, []);
@@ -167,14 +97,22 @@ const MenuBar: React.FC = () => {
                 const isAdmin = currentUser.IsSiteAdmin;
 
                 const updatedApps = baseApps.map(app => {
+                    // ⭐ IF ADMIN → SHOW ALL
+                    if (isAdmin) {
+                        return { ...app, required: true };
+                    }
+
+                    // ⭐ NON-ADMIN → USE appsRequired
                     const defaultRequired =
                         appsRequired.find(req => req.title === app.title)?.required ?? true;
 
+                    // Hide Admin Panel for normal users
                     if (app.title === "Admin Panel") {
-                        return { ...app, required: isAdmin };
+                        return { ...app, required: false };
                     }
 
-                    if (app.title === "Employee Directory" && !isAdmin) {
+                    // If non-admin, Employee Directory → Zoho
+                    if (app.title === "Employee Directory") {
                         return {
                             ...app,
                             required: defaultRequired,
@@ -202,7 +140,7 @@ const MenuBar: React.FC = () => {
 
     const filteredApps = apps.filter(app => app.required !== false);
     const visibleApps = isMobile ? filteredApps : filteredApps.slice(0, 4);
-    const moreApps = filteredApps.slice(4);
+
 
     return (
         <div className="menuBar">
@@ -215,7 +153,7 @@ const MenuBar: React.FC = () => {
 
             {isMobile ? (
                 <div className="mobileMenuContainer">
-                    {filteredApps.map((app, index) => (
+                    {filteredApps.map((app, index) =>
                         app.external ? (
                             <a key={index} className="appContainer" href={app.path} target="_blank" rel="noopener noreferrer">
                                 <div className="appIcon" style={{ backgroundColor: app.color }}>{app.icon}</div>
@@ -227,23 +165,13 @@ const MenuBar: React.FC = () => {
                                 <p className="appTitle">{app.title}</p>
                             </div>
                         )
-                    ))}
+                    )}
                 </div>
             ) : (
                 <div className="rightSection">
 
-                    {/* ⭐ FIXED Need Help Link */}
-                    <div
-                        className="appContainer"
-                    >
-                        <div className="appIcon" style={{ backgroundColor: "#3b82f6" }}>
-                            <HelpDesk />
-                        </div>
-                        <p className="appTitle">Need Help?</p>
-                    </div>
-                    {/* ⭐ END FIXED ITEM */}
 
-                    {visibleApps.map((app, index) => (
+                    {visibleApps.map((app, index) =>
                         app.external ? (
                             <a
                                 key={index}
@@ -259,25 +187,16 @@ const MenuBar: React.FC = () => {
                                 <p className="appTitle">{app.title}</p>
                             </a>
                         ) : (
-                            <div
-                                key={index}
-                                className="appContainer"
-                                onClick={() => handleAppClick(app)}
-                            >
+                            <div key={index} className="appContainer" onClick={() => handleAppClick(app)}>
                                 <div className="appIcon" style={{ backgroundColor: app.color }}>
                                     {app.icon}
                                 </div>
                                 <p className="appTitle">{app.title}</p>
                             </div>
                         )
-                    ))}
-
-                    {moreApps.length > 0 && (
-                        <MoreDropdown items={moreApps} onItemClick={handleAppClick} />
                     )}
 
                 </div>
-
             )}
         </div>
     );

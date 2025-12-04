@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, [location]);
 
   return (
-    <div>
+    <div className="layout-wrapper">
       <TopNav />
       {isHome && <MenuBar />}
       <div className="layout-container">
