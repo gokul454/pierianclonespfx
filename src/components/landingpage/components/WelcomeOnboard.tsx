@@ -65,7 +65,7 @@ const WelcomeOnboard: React.FC<WelcomeOnboardProps> = ({ data = [] }) => {
 
       {/* Navigation Buttons */}
       {data.length > 1 && (
-        <div className="lp-lead-nav">
+        <div className=" lead-nav-welcome">
           <button className="lp-circle small" onClick={prev}>◀</button>
           <button className="lp-circle small" onClick={next}>▶</button>
         </div>

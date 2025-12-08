@@ -1,19 +1,17 @@
+
 :root {
-  /* Dashboard colors */
   --welcome-card-bg-color: #EF433F;      
   --recognized-employ-bg-color: #131A25;   
   --latest-news-events-bg-color: #494747;   
   --new-joiners-bg-color: #ce1f3d;
   --job-openings-bg-color: #5f5f5e;
   --background-color: #F4F3F2;   
-  --view-all-btn: #EF433F;      /* view button color */
-  --view-all-btn-hover: #ff7875;/* view button hover color */ 
+  --view-all-btn: #EF433F;     
+  --view-all-btn-hover: #ff7875;
 
-  /* Nav and menubar colors */
-  --nav-color: #131A25;         /* nav bar and menu bar color */    
-  --app-container-color: #131A25; /* menu bar app container color */
+  --nav-color: #131A25;  
+  --app-container-color: #131A25; 
 
-  /* Font family with fallback */
   --font-family: "Outfit", Arial, sans-serif !important;
 }
 

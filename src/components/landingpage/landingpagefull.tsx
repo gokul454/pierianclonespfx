@@ -13,7 +13,6 @@ import HrAnnouncements from "./components/HrAnnouncements";
 import WelcomeOnboard from "./components/WelcomeOnboard";
 import RecognizedEmployees from "./components/RecognizedEmployees";
 import QuickLinks from "./components/QuickLinks";
-import JobOpenings from "./components/JobOpenings";
 
 import {
   getCarousalData,
@@ -21,7 +20,7 @@ import {
   getCorporateNews,
   getDocumentsFromLibraryAsync,
   getHRAnnouncements,
-  getJobOpeningsData,
+ 
   getNewgetOnboardEmployee,
   getNewJoiners,
   getNewsEvents,
@@ -35,7 +34,6 @@ import {
   GalleryItemType,
   HeroSlide,
   HRAnnouncementType,
-  JobOpeningType,
   LeadershipMessageType,
   NewJoinerType,
   NewsEventType,
@@ -46,8 +44,8 @@ import {
 import { spContext } from "../../App";
 import { defaultTenantUrl } from "../../utils/constant";
 import "./landingpagefull.css";
-import { getLeadershipMessagesItems } 
-from "../../services/adminServices/LeadershipMessagesService/LeadershipMessagesService";
+import { getLeadershipMessagesItems }
+  from "../../services/adminServices/LeadershipMessagesService/LeadershipMessagesService";
 
 const LandingPageFull: React.FC = () => {
   const { sp } = useContext(spContext);
@@ -71,7 +69,6 @@ const LandingPageFull: React.FC = () => {
   const [welcomeData, setWelcomeData] = useState<WelcomeMessageType[]>([]);
   const [recognizedEmployees, setRecognizedEmployees] = useState<RecognizedEmployeeType[]>([]);
   const [quickLinks, setQuickLinks] = useState<QuickLinkType[]>([]);
-  const [jobOpeningData, setJobOpeningData] = useState<JobOpeningType[]>([]);
 
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -200,9 +197,23 @@ const LandingPageFull: React.FC = () => {
       setHrData(mappedHR);
 
 
-      setQuickLinks((await getQuickLinksData(sp, "QuickLinks")) ?? []);
-      setJobOpeningData((await getJobOpeningsData(sp, "JobOpenings")) ?? []);
+      const quickLinkItems = await getQuickLinksData(sp, "QuickLinks");
 
+      if (quickLinkItems && Array.isArray(quickLinkItems)) {
+        const mappedQuickLinks = quickLinkItems.map((item: any) => ({
+          id: item.Id,
+          url: item.CustomURL,
+          label: item.Label,
+          tooltip: item.Tooltip
+        }));
+
+        setQuickLinks(mappedQuickLinks);
+      }
+
+
+      
+
+      ``
       const onboardItems = (await getNewgetOnboardEmployee(sp, "EmployeeOnboard")) ?? [];
 
       const mappedOnboard = onboardItems
@@ -265,7 +276,6 @@ const LandingPageFull: React.FC = () => {
           <WelcomeOnboard data={welcomeData} />
           <RecognizedEmployees data={recognizedEmployees} />
           <QuickLinks quickLinks={quickLinks} />
-          <JobOpenings jobOpenings={jobOpeningData} />
         </aside>
       </div>
     </div>

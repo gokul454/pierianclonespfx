@@ -1,5 +1,5 @@
 import * as React from 'react';
-import  { useState } from 'react';
+import { useState } from 'react';
 import './ListingComponent.css';
 import { useNavigate } from 'react-router-dom';
 import { dateFormat } from '../../../utils/utils';
@@ -72,12 +72,13 @@ const ListingComponent: React.FC<ListingComponentProps> = ({ newsItems, Title, L
                         <Search
                             placeholder="Search..."
                             allowClear
-                            onChange={(e) => {
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                 setSearchTerm(e.target.value);
-                                setCurrentPage(1); // reset to first page on search
+                                setCurrentPage(1);
                             }}
                             style={{ width: 400, marginBottom: 20 }}
                         />
+
                     </div>
                 </header>
 

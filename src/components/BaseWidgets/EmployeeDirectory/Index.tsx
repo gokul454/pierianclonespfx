@@ -141,13 +141,16 @@ const EmployeeDirectory: React.FC<IEmployeeDir> = ({ employeesData, listName = '
         {/* Search */}
         <div className="employ-dir-search-container">
           <Search
-            placeholder="Search employees by name, position, or department..."
-            allowClear
-            size="large"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="employ-dir-search-input"
-          />
+  placeholder="Search employees by name, position, or department..."
+  allowClear
+  size="large"
+  value={searchTerm}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(e.target.value)
+  }
+  className="employ-dir-search-input"
+/>
+
         </div>
       </div>
 

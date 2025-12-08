@@ -38,12 +38,12 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
     }
   };
 
-  // Navigate to list page
+  // ⭐ Navigate to LISTING page
   const handleViewAll = () => {
-    navigate("/list/LeadershipMessage");
+    navigate("/listing/LeadershipMessage");
   };
 
-  // Navigate to detail page
+  // ⭐ Navigate to DETAIL page
   const handleClick = (id?: number) => {
     if (id !== undefined) {
       navigate(`/detail/LeadershipMessage/${id}`);
@@ -51,7 +51,6 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
   };
 
   console.log("LEADERSHIP DATA:", data);
-
 
   return (
     <div className="lp-card lp-leadership">
@@ -67,9 +66,13 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
 
       <div className="lp-lead-quote">“</div>
 
-      {/* Message Section */}
+      {/* ⭐ Click message to open detail page */}
       {hasData ? (
-        <p className="lp-lead-text" onClick={() => handleClick(current?.id)}>
+        <p
+          className="lp-lead-text"
+          onClick={() => handleClick(current?.id)}
+          style={{ cursor: "pointer" }} // ← does NOT change UI, only improves UX
+        >
           {current?.message}
         </p>
       ) : (
@@ -89,17 +92,16 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
             <div className="lp-lead-name">{current?.name}</div>
             <div className="lp-lead-role">{current?.title}</div>
           </div>
-
-          <div className="lp-lead-nav">
-            <button className="lp-circle small" onClick={prev}>
-              ◀
-            </button>
-            <button className="lp-circle small" onClick={next}>
-              ▶
-            </button>
-          </div>
         </div>
       )}
+      <div className="lp-lead-nav">
+        <button className="lp-circle small" onClick={prev}>
+          ◀
+        </button>
+        <button className="lp-circle small" onClick={next}>
+          ▶
+        </button>
+      </div>
     </div>
   );
 };

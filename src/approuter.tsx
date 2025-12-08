@@ -21,7 +21,7 @@ const EmployeeDirectoryManagement = lazy(() => import("./components/AdminPanel/C
 const CarouselDataManagement = lazy(() => import("./components/AdminPanel/Components/CarouselData/Index"));
 const HRAnnouncementManagement = lazy(() => import("./components/AdminPanel/Components/HRAnnouncements/Index"));
 const PhotoVideoGalleryManagement = lazy(() => import("./components/AdminPanel/Components/PhotoVideoGallery/Index"));
-const JobOpeningsManagement = lazy(() => import("./components/AdminPanel/Components/JobOpenings/Index"));
+
 const BUHeadsManagement = lazy(() => import("./components/AdminPanel/Components/BUHeads/Index"));
 const QuickLinkManagement = lazy(() => import("./components/AdminPanel/Components/QuickLinks/Index"));
 
@@ -74,7 +74,6 @@ export default function AppRouter() {
       { path: 'admin/carousel-data', element: <CarouselDataManagement /> },
       { path: 'admin/hr-announcement', element: <HRAnnouncementManagement /> },
       { path: 'admin/photo-video-gallery', element: <PhotoVideoGalleryManagement /> },
-      { path: 'admin/job-openings', element: <JobOpeningsManagement /> },
       { path: 'admin/bu-heads', element: <BUHeadsManagement /> },
       { path: 'admin/quick-links', element: <QuickLinkManagement /> }
     );

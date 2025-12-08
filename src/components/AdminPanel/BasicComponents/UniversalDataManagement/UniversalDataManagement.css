@@ -3,6 +3,7 @@
     min-height: 100vh;
     background: var(--background-color);
     padding: 24px;
+    position: relative;
 }
 
 .universal-data-header-universal-data-management {
@@ -210,9 +211,15 @@
 }
 
 /* Custom Drawer Styles */
-.custom-drawer-universal-data-management .ant-drawer-content {
-    background: #f8f9fa;
+.custom-drawer-universal-data-management {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  height: 100vh !important;
+  overflow: visible !important;
+  z-index: 999999 !important;
 }
+
 
 .drawer-content-universal-data-management {
     height: 100vh;
@@ -1126,3 +1133,45 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.custom-drawer-universal-data-management {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  height: 100vh !important;
+  overflow: visible !important;
+}
+
+
+
+
+
+.custom-drawer-universal-data-management {
+  position: absolute !important;     /* instead of fixed */
+  top: 0 !important;
+  right: 0 !important;
+  height: 100% !important;
+  width: inherit !important;         /* drawer width respects container */
+  overflow: auto !important;
+  max-width: 600px !important;
+}   

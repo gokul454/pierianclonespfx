@@ -15,7 +15,6 @@ const Events: React.FC<EventsProps> = ({ mainEvent, sideEvents, onViewAll }) => 
     if (onViewAll) onViewAll();
     else navigate("/listing/CorporateEvents");
   };
-
   // ⭐ Detail page navigation
   const openDetail = (id: any) => {
     if (!id) return;

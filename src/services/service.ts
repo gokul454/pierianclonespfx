@@ -7,6 +7,7 @@ import '@pnp/sp/lists';
 import "@pnp/sp/files";
 import '@pnp/sp/folders';
 import "@pnp/sp/profiles";
+import { NewsEventType } from "../utils/types";
 
 const handleError = (err: any, context: string) => {
   console.error(`Error in ${context}:`, err);
@@ -176,7 +177,7 @@ export const getLeadershipMessages = async (sp: SPFI, listName: string) => {
       .items
       .select("Id", "Title", "EmployeeName", "Designation", "Message", "UserImage", "Status")
       .filter("Status eq 'publish'")
-      .orderBy("Id", false) 
+      .orderBy("Id", false)
       .top(4)();
   } catch (err) {
     handleError(err, `getLeadershipMessages for ${listName}`);
@@ -184,19 +185,37 @@ export const getLeadershipMessages = async (sp: SPFI, listName: string) => {
 };
 
 
-export const getNewsEvents = async (sp: SPFI, listName: string) => {
+export const getNewsEvents = async (
+  sp: SPFI,
+  listName: string
+): Promise<NewsEventType[]> => {
   try {
-    const today = new Date().toISOString(); // current date in ISO
+    const today = new Date().toISOString();
 
-    return await sp.web.lists
+    // 1️⃣ Fetch raw SharePoint items
+    const rawItems: any[] = await sp.web.lists
       .getByTitle(listName)
       .items
       .select("Id", "Title", "Description", "Date", "PublishType", "Image", "Status")
-      .filter(`Status eq 'publish' and Date le datetime'${today}'`) // ✅ only past or today
-      .orderBy("Date", false) // ✅ latest first
+      .filter(`Status eq 'publish' and Date le datetime'${today}'`)
+      .orderBy("Date", false)
       .top(3)();
+
+    // 2️⃣ Convert to your UI-friendly type
+    const mapped: NewsEventType[] = rawItems.map((item: any) => ({
+      id: String(item.Id),
+      type: item.PublishType || "News",         // 👈 SP column PublishType
+      title: item.Title,
+      description: item.Description,
+      date: item.Date,
+      image: item.Image || "",                 // 👈 SP column Image
+    }));
+
+    console.log("Mapped Latest News & Events:", mapped);
+
+    return mapped;
   } catch (err) {
-    handleError(err, `getNewsEvents for ${listName}`);
+    console.error("Error in getNewsEvents:", err);
     return [];
   }
 };

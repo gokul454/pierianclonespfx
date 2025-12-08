@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Avatar, Tag, Input, Row, Col, Typography, Space, Divider, Table } from 'antd';
 import {
   MailOutlined,
@@ -126,9 +126,12 @@ const BUHeadsDirectory: React.FC<IBUHeadsDirectory> = ({ buHeadsData }) => {
             allowClear
             size="large"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchTerm(e.target.value)
+            }
             className="bu-heads-search-input"
           />
+
         </div>
       </div>
 

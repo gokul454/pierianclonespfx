@@ -3,7 +3,6 @@ import {
   PictureOutlined,
   FileTextOutlined,
   CalendarOutlined,
-  // MessageOutlined,
   VideoCameraOutlined,
   ThunderboltOutlined,
   UserAddOutlined,
@@ -84,13 +83,6 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
       icon: <CalendarOutlined style={{ color: 'black' }}/>,
       onClick: () => handlePanelClick('admin/corporate-events')
     },
-    // {
-    //   id: 'description-board',
-    //   title: 'Description Board',
-    //   description: 'Display important notices or messages on the description board.',
-    //   icon: <MessageOutlined style={{ color: 'black' }}/>,
-    //   onClick: () => handlePanelClick('admin/description-board')
-    // },
     {
       id: 'leadership-messages',
       title: 'Leadership Messages',

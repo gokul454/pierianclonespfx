@@ -1,3 +1,4 @@
+// UniversalDataManagement.tsx
 import * as React from 'react';
 import { useRef, useState, useCallback, useMemo, useContext, useEffect } from 'react';
 import { Table, Button, Input, Drawer, message, Modal, Select, Radio, DatePicker, TimePicker } from 'antd';
@@ -15,9 +16,10 @@ import {
   FilePdfOutlined
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
-import './UniversalDataManagement.css';
-import * as moment from "moment";
 
+import './UniversalDataManagement.css';
+// Use namespace import to avoid "allowSyntheticDefaultImports" requirement
+import * as dayjs from 'dayjs';
 
 const { Option } = Select;
 
@@ -121,6 +123,7 @@ const UniversalDataManagement = <T extends BaseDataItem>({
   const [enrichedData, setEnrichedData] = useState<T[]>([]);
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
+  // get sp from context (unchanged)
   const { sp } = useContext(spContext)!;
 
   // Check if any field is an employee field
@@ -749,10 +752,13 @@ const UniversalDataManagement = <T extends BaseDataItem>({
           <Input
             disabled={isDisabled}
             value={value || ''}
-            onChange={(e) => handleInputChange(field.key, e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange(field.key, e.target.value)
+            }
             placeholder={field.placeholder}
             className="form-input-universal-data-management"
           />
+
         );
 
       case 'textarea':
@@ -761,11 +767,14 @@ const UniversalDataManagement = <T extends BaseDataItem>({
             <Input.TextArea
               disabled={isDisabled}
               value={value || ''}
-              onChange={(e) => handleInputChange(field.key, e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                handleInputChange(field.key, e.target.value)
+              }
               placeholder={field.placeholder}
               className="form-textarea-universal-data-management"
               rows={field.rows || 4}
             />
+
           </div>
         );
 
@@ -811,7 +820,6 @@ const UniversalDataManagement = <T extends BaseDataItem>({
           </Radio.Group>
         );
 
-
       case 'date':
         return (
           <DatePicker
@@ -820,10 +828,9 @@ const UniversalDataManagement = <T extends BaseDataItem>({
             className="form-input-universal-data-management date-picker-universal-data-management"
             suffixIcon={<CalendarOutlined />}
             format="DD MMM YYYY"
-            value={value ? moment(value, 'DD MMM YYYY') : null}
-            onChange={(date, dateString) =>
-              handleInputChange(field.key, dateString)
-            }
+            // Cast to any because AntD v4 expects Moment; we're using Dayjs
+            value={value ? (dayjs(value, 'DD MMM YYYY') as any) : null}
+            onChange={(date: any, dateString: string) => handleInputChange(field.key, dateString)}
           />
         );
 
@@ -835,15 +842,9 @@ const UniversalDataManagement = <T extends BaseDataItem>({
             className="form-input-universal-data-management time-picker-universal-data-management"
             format="h a"
             suffixIcon={<ClockCircleOutlined />}
-            value={
-              value
-                ? [
-                  moment(value.split(' - ')[0], 'h a'),
-                  moment(value.split(' - ')[1], 'h a'),
-                ]
-                : null
-            }
-            onChange={(times, timeStrings) => {
+            // Cast array to any to satisfy AntD v4 types (Moment)
+            value={value ? ([dayjs(value.split(' - ')[0], 'h a'), dayjs(value.split(' - ')[1], 'h a')] as any) : null}
+            onChange={(times: any, timeStrings: string[]) => {
               if (timeStrings?.[0] && timeStrings?.[1]) {
                 handleInputChange(field.key, `${timeStrings[0]} - ${timeStrings[1]}`);
               }
@@ -851,17 +852,19 @@ const UniversalDataManagement = <T extends BaseDataItem>({
           />
         );
 
-
       case 'number':
         return (
           <Input
             type="number"
             min={0}
             value={value}
-            onChange={(e) => handleInputChange(field.key, Number(e.target.value))}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleInputChange(field.key, Number(e.target.value))
+            }
             placeholder={field.placeholder}
             className="form-input-universal-data-management"
           />
+
         );
 
       case 'pdfFile':
@@ -1130,13 +1133,16 @@ const UniversalDataManagement = <T extends BaseDataItem>({
         placement="right"
         width={drawerWidth}
         height="100vh"
-        visible={isDrawerVisible}
+        open={isDrawerVisible}
         onClose={handleCancel}
         closable={false}
         className="custom-drawer-universal-data-management"
+        getContainer={false}          // ⭐ REQUIRED FOR SPFX
+        style={{ position: 'fixed', zIndex: 999999 }}  // ⭐ To ensure visibility
         bodyStyle={{ padding: 0 }}
         headerStyle={{ display: 'none' }}
       >
+
         <div className="drawer-content-universal-data-management">
           <div className="drawer-header-universal-data-management">
             <h2>{editingItem ? `Edit ${title}` : title}</h2>

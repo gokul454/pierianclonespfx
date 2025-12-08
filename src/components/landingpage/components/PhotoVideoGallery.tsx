@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { GalleryItemType } from "../../../utils/types";
+import { useNavigate } from "react-router-dom";
 
 interface PhotoVideoGalleryProps {
   items: GalleryItemType[];
@@ -11,6 +12,7 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
   const ITEMS_PER_PAGE = 3;
 
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   const next = () => {
     if (!hasItems) return;
@@ -32,13 +34,24 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
     ? items.slice(index, index + ITEMS_PER_PAGE)
     : [];
 
+  // ⭐ DETAIL PAGE HANDLER
+  const openDetail = (id: any) => {
+    if (!id) return;
+    navigate(`/detail/VideoGalleryLibrary/${id}`);
+  };
+
   return (
     <div className="lp-card">
       <div className="lp-section-header">
         <h3>Photo Video Gallery</h3>
-        <button className="lp-viewall">View all ➜</button>
+        <button
+          className="lp-viewall"
+          onClick={() => navigate("/listing/VideoGalleryLibrary")}
+        >
+          View all ➜
+        </button>
       </div>
-      
+
       <div className="lp-gallery-carousel-wrapper">
         <button className="lp-gallery-arrow" onClick={prev}>◀</button>
 
@@ -51,6 +64,8 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
                   src={item.url}
                   className="lp-gallery-img"
                   controls
+                  onClick={() => openDetail(item.id)}   // ⭐ CLICK
+                  style={{ cursor: "pointer" }}         // ⭐ no UI change, just interaction
                 />
               ) : (
                 <img
@@ -58,6 +73,8 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
                   src={item.url}
                   alt={item.description}
                   className="lp-gallery-img"
+                  onClick={() => openDetail(item.id)}   // ⭐ CLICK
+                  style={{ cursor: "pointer" }}         // ⭐ no UI change
                 />
               )
             )
