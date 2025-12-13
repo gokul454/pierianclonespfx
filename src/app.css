@@ -1,21 +1,71 @@
 
-:root {
-  --welcome-card-bg-color: #EF433F;      
-  --recognized-employ-bg-color: #131A25;   
-  --latest-news-events-bg-color: #494747;   
-  --new-joiners-bg-color: #ce1f3d;
-  --job-openings-bg-color: #5f5f5e;
-  --background-color: #F4F3F2;   
-  --view-all-btn: #EF433F;     
-  --view-all-btn-hover: #ff7875;
-
-  --nav-color: #131A25;  
-  --app-container-color: #131A25; 
-
-  --font-family: "Outfit", Arial, sans-serif !important;
-}
 
 body, body * {
   margin: 0;
   font-family: "Outfit", Arial, sans-serif !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+:root {
+
+  /* --------- GLOBAL BRAND COLORS --------- */
+  --brand-primary: #EF433F;          /* Main red */
+  --brand-primary-dark: #C92B35;
+  --brand-primary-light: #FF6B6B;
+
+  --brand-secondary: #131A25;        /* Dark blue/black */
+  --brand-secondary-light: #1E2635;
+
+  --brand-accent: #E3B341;           /* Golden accent (optional) */
+
+  /* --------- BACKGROUNDS --------- */
+  --background-color: #F4F3F2;       /* Page background */
+  --card-bg: #FFFFFF;                /* Default card */
+  --card-bg-dark: #1A1F29;           /* Dark mode alternative */
+
+  /* --------- SPECIAL SECTION BACKGROUNDS --------- */
+  --welcome-card-bg-color: #EF433F;   
+  --recognized-employ-bg-color: #131A25;
+  --latest-news-events-bg-color: #494747;
+  --new-joiners-bg-color: #CE1F3D;
+  --job-openings-bg-color: #5F5F5E;
+
+  --leadership-bg-start: #591133;
+  --leadership-bg-end: #EA413E;
+
+  /* --------- TEXT COLORS --------- */
+  --text-primary: #0F1724;  
+  --text-secondary: #6B7280; 
+  --text-light: #FFFFFF;  
+  --text-muted: #A1A1AA;
+
+  /* --------- BUTTONS --------- */
+  --view-all-btn: #EF433F;
+  --view-all-btn-hover: #FF7875;
+
+  --btn-light-bg: #F3F3F3;
+  --btn-light-hover: #E5E5E5;
+
+  /* --------- BORDERS / DIVIDERS --------- */
+  --border-light: #F3F3F4;
+  --border-dark: #2D2D2D;
+
+  /* --------- SHADOWS --------- */
+  --shadow-card: 0 6px 18px rgba(2, 6, 23, 0.06);
+  --shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  /* --------- CAROUSEL FILTER --------- */
+  --carousel-image-darken: brightness(0.55);
+
+  /* --------- MISC --------- */
+  --avatar-border: rgba(255, 255, 255, 0.12);
 }

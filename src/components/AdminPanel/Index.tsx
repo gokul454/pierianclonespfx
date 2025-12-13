@@ -66,98 +66,105 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
       id: 'carousal-data',
       title: 'Media Gallery',
       description: 'Upload and manage images or banners for the homepage carousel.',
-      icon: <PictureOutlined style={{ color: 'black' }}/>,
+      icon: <PictureOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/carousel-data')
     },
     {
       id: 'corporate-news',
       title: 'Corporate News',
       description: 'Publish and maintain news articles about company updates.',
-      icon: <FileTextOutlined style={{ color: 'black' }}/>,
+      icon: <FileTextOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/corporate-news')
     },
     {
       id: 'events',
       title: 'Events',
       description: 'Highlight the most recent company events updates.',
-      icon: <CalendarOutlined style={{ color: 'black' }}/>,
+      icon: <CalendarOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/corporate-events')
     },
     {
       id: 'leadership-messages',
       title: 'Leadership Messages',
       description: 'Post messages and updates from company leadership.',
-      icon: <CrownOutlined style={{ color: 'black' }}/>,
+      icon: <CrownOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/leadership-messages')
     },
     {
       id: 'photo-video-gallery',
       title: 'Photo Video Gallery',
       description: 'Organize and display corporate photos and video content.',
-      icon: <VideoCameraOutlined style={{ color: 'black' }}/>,
+      icon: <VideoCameraOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/photo-video-gallery')
     },
     {
       id: 'latest-news-events',
       title: 'Latest News & Events',
       description: 'Create, schedule, and manage latest and upcoming news and events.',
-      icon: <ThunderboltOutlined style={{ color: 'black' }}/>,
+      icon: <ThunderboltOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/latest-news-events')
     },
     {
       id: 'new-joiners',
       title: 'New Joiners',
       description: 'Welcome and showcase newly joined team members.',
-      icon: <UserAddOutlined style={{ color: 'black' }}/>,
+      icon: <UserAddOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/new-joiners')
     },
     {
       id: 'recognized-employee',
       title: 'Recognized Employee',
       description: 'Acknowledge employees with notable achievements.',
-      icon: <TrophyOutlined style={{ color: 'black' }}/>,
+      icon: <TrophyOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/recognized-employee')
     },
     {
       id: 'welcome-data',
       title: 'Welcome Data',
       description: 'Manage welcome content for employees and visitors.',
-      icon: <SmileOutlined style={{ color: 'black' }}/>,
+      icon: <SmileOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/welcome-data')
     },
     {
       id: 'hr-announcement',
       title: 'HR Announcements',
       description: 'Share important announcements from the HR department.',
-      icon: <NotificationOutlined style={{ color: 'black' }}/>,
+      icon: <NotificationOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/hr-announcement')
     },
     {
       id: 'employee-directory-management',
       title: 'Employee Directory Management',
       description: 'Maintain employee profiles and contact details.',
-      icon: <TeamOutlined style={{ color: 'black' }}/>,
+      icon: <TeamOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/employee-directory')
     },
     {
       id: 'job-openings-management',
       title: 'Job Openings Management',
       description: 'List and manage current job openings.',
-      icon: <SolutionOutlined style={{ color: 'black' }}/>,
+      icon: <SolutionOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/job-openings')
     },
     {
       id: 'bu-heads-management',
       title: 'BU Heads Management',
       description: 'Manage profiles of Business Unit Heads.',
-      icon: <CrownOutlined style={{ color: 'black' }}/>,
+      icon: <CrownOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/bu-heads')
     },
     {
       id: 'quick-links-management',
       title: 'Quick Links Management',
       description: 'Add, edit, or remove quick access links.',
-      icon: <LinkOutlined style={{ color: 'black' }}/>,
+      icon: <LinkOutlined style={{ color: 'black' }} />,
+      onClick: () => handlePanelClick('admin/quick-links')
+    },
+    {
+      id: 'quick-links-management',
+      title: 'Quick Links Management',
+      description: 'Add, edit, or remove quick access links.',
+      icon: <LinkOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/quick-links')
     }
   ];

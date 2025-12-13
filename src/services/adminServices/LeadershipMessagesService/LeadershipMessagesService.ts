@@ -5,7 +5,7 @@ import "@pnp/sp/items";
 import "@pnp/sp/files";
 import "@pnp/sp/folders";
 import { Site_Name } from "../../../utils/constant";
- 
+
 export interface ILeadershipMessagesItem {
   ID?: number;
   Title: string;
@@ -13,29 +13,29 @@ export interface ILeadershipMessagesItem {
   Designation: string;
   Message: any;
 }
- 
+
 export interface IFileUploadType {
   name: string;
   file: File;
 }
- 
+
 const handleError = (err: any, context: string) => {
   console.error(`Error in ${context}:`, err);
   throw new Error(`Failed to execute ${context}`);
 };
- 
+
 export const getLeadershipMessagesItems = async (sp: SPFI, listName: string) => {
   try {
     return await sp.web.lists
       .getByTitle(listName)
       .items
-      .select("ID", "Title", "UserImage", "Designation", "Message","Modified","Status").orderBy("Modified", false)();
+      .select("ID", "Title", "UserImage", "Designation", "Message", "Modified", "Status")
+      .orderBy("Modified", false)();
   } catch (err) {
     handleError(err, `getLeadershipMessagesItems for ${listName}`);
   }
 };
- 
- 
+
 export const addLeadershipMessagesItem = async (
   sp: SPFI,
   listName: string,
@@ -48,7 +48,7 @@ export const addLeadershipMessagesItem = async (
     handleError(err, `addLeadershipMessagesItem to ${listName}`);
   }
 };
- 
+
 export const updateLeadershipMessagesItem = async (
   sp: SPFI,
   listName: string,
@@ -56,13 +56,22 @@ export const updateLeadershipMessagesItem = async (
   data: Partial<ILeadershipMessagesItem>
 ) => {
   try {
-    const result = await sp.web.lists.getByTitle(listName).items.getById(itemId).update(data);
-    return result;
+    // FIX: Safer way to fetch the real item after tenant migration
+    const items = await sp.web.lists.getByTitle(listName)
+      .items.filter(`ID eq ${itemId}`)();
+
+    if (!items.length) throw new Error(`Item with ID ${itemId} not found`);
+
+    return await sp.web.lists
+      .getByTitle(listName)
+      .items.getById(items[0].ID)
+      .update(data);
+
   } catch (err) {
     handleError(err, `updateLeadershipMessagesItem ${itemId} in ${listName}`);
   }
 };
- 
+
 export const deleteLeadershipMessagesItem = async (
   sp: SPFI,
   listName: string,
@@ -74,10 +83,10 @@ export const deleteLeadershipMessagesItem = async (
     handleError(err, `deleteLeadershipMessagesItem ${itemId} from ${listName}`);
   }
 };
- 
+
 export const uploadLeadershipMessagesImageAsync = async (
   sp: SPFI,
-  libraryName: string, 
+  libraryName: string,
   fileInfo: IFileUploadType
 ): Promise<string | null> => {
   try {
@@ -95,7 +104,7 @@ export const uploadLeadershipMessagesImageAsync = async (
 export const deleteLeadershipMessagesImage = async (sp: SPFI, imageUrl: string) => {
   try {
     let serverRelativeUrl: string;
- 
+
     if (imageUrl.startsWith("http")) {
       serverRelativeUrl = new URL(imageUrl).pathname;
     } else if (imageUrl.startsWith("/")) {
@@ -103,7 +112,7 @@ export const deleteLeadershipMessagesImage = async (sp: SPFI, imageUrl: string) 
     } else {
       throw new Error("Invalid image URL format.");
     }
- 
+
     await sp.web.getFileByServerRelativePath(serverRelativeUrl).delete();
     console.log("✅ Image deleted from Corporate library:", serverRelativeUrl);
   } catch (err) {

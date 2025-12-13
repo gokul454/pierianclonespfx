@@ -20,7 +20,6 @@ import {
   getCorporateNews,
   getDocumentsFromLibraryAsync,
   getHRAnnouncements,
- 
   getNewgetOnboardEmployee,
   getNewJoiners,
   getNewsEvents,
@@ -41,11 +40,13 @@ import {
   RecognizedEmployeeType,
   WelcomeMessageType
 } from "../../utils/types";
+
 import { spContext } from "../../App";
 import { defaultTenantUrl } from "../../utils/constant";
 import "./landingpagefull.css";
-import { getLeadershipMessagesItems }
-  from "../../services/adminServices/LeadershipMessagesService/LeadershipMessagesService";
+
+import { getLeadershipMessagesItems } from "../../services/adminServices/LeadershipMessagesService/LeadershipMessagesService";
+import { ThemeSettingsService } from "../../services/ThemeSettingsService";
 
 const LandingPageFull: React.FC = () => {
   const { sp } = useContext(spContext);
@@ -56,6 +57,7 @@ const LandingPageFull: React.FC = () => {
     mainEvent: null,
     sideEvents: []
   });
+
   const [corporateEventsData, setCorporateEventsData] = useState<{
     mainEvent: EventItem | null;
     sideEvents: EventItem[];
@@ -74,44 +76,22 @@ const LandingPageFull: React.FC = () => {
   const rightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!leftRef.current || !rightRef.current) return;
-
-    const updateHeight = () => {
-      if (window.innerWidth >= 1024) {
-        rightRef.current!.style.height = "auto";  // reset first
-        rightRef.current!.style.height = `${leftRef.current!.offsetHeight}px`;
-      } else {
-        rightRef.current!.style.height = "auto";
-      }
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-
-    return () => window.removeEventListener("resize", updateHeight);
-  }, [carouselData, leadershipData, hrData, welcomeData]);
-
-
-  useEffect(() => {
     loadAllData();
   }, []);
 
   const loadAllData = async () => {
     try {
       const carousal = (await getCarousalData(sp, "MediaGallery")) ?? [];
-
-      const mappedCarousel: HeroSlide[] = carousal
-        .filter((item: any) => item.Status === "publish") // fetch only published items
-        .map((item: any) => ({
-          id: String(item.Id),
-          image: item.ThumbnailURL,
-          title: item.Title,
-          subtitle: item.Description
-        }));
-
-      setCarouselData(mappedCarousel);
-
-
+      setCarouselData(
+        carousal
+          .filter((item: any) => String(item.Status).toLowerCase() === "publish")
+          .map((item: any) => ({
+            id: String(item.Id),
+            image: item.ThumbnailURL,
+            title: item.Title,
+            subtitle: item.Description
+          }))
+      );
 
       const corpNews = (await getCorporateNews(sp, "CorporateNews")) ?? [];
       const mappedNews = corpNews.map((n: any) => ({
@@ -166,84 +146,110 @@ const LandingPageFull: React.FC = () => {
         }))
       );
 
+      // ⭐ THE FIX — correct list name
       const leadershipItems = (await getLeadershipMessagesItems(sp, "LeadershipMessage")) ?? [];
 
       setLeadershipData(
         leadershipItems
-          .filter((item: any) => item.Status === "publish")
+          .filter((item: any) => String(item.Status).toLowerCase() === "publish")
           .map((item: any) => ({
             id: item.ID,
             message: item.Message,
             avatar: item.UserImage,
-            name: item.Title,          // ✅ FIXED
-            title: item.Designation,   // correct
+            name: item.Title,
+            title: item.Designation,
           }))
       );
 
-      console.log("RAW leadershipItems:", leadershipItems);
-
       const hrItems = (await getHRAnnouncements(sp, "HRAnnouncements")) ?? [];
-
-      const mappedHR = hrItems
-        .filter((item: any) => item.Status === "publish")
-        .map((item: any) => ({
-          id: item.ID,
-          subtitle: item.Title,
-          description: item.Description,
-          date: item.Date,
-          status: item.Status
-        }));
-
-      setHrData(mappedHR);
-
+      setHrData(
+        hrItems
+          .filter((item: any) => String(item.Status).toLowerCase() === "publish")
+          .map((item: any) => ({
+            id: item.ID,
+            subtitle: item.Title,
+            description: item.Description,
+            date: item.Date,
+            status: item.Status
+          }))
+      );
 
       const quickLinkItems = await getQuickLinksData(sp, "QuickLinks");
-
-      if (quickLinkItems && Array.isArray(quickLinkItems)) {
-        const mappedQuickLinks = quickLinkItems.map((item: any) => ({
-          id: item.Id,
-          url: item.CustomURL,
-          label: item.Label,
-          tooltip: item.Tooltip
-        }));
-
-        setQuickLinks(mappedQuickLinks);
+      if (Array.isArray(quickLinkItems)) {
+        setQuickLinks(
+          quickLinkItems.map((item: any) => ({
+            id: item.Id,
+            url: item.CustomURL,
+            label: item.Label,
+            tooltip: item.Tooltip
+          }))
+        );
       }
 
-
-      
-
-      ``
       const onboardItems = (await getNewgetOnboardEmployee(sp, "EmployeeOnboard")) ?? [];
-
-      const mappedOnboard = onboardItems
-        .filter(i => i.Status === "publish")
-        .map(i => ({
-          id: i.EmployeeID,
-          message: i.Message,
-          employeeName: i.EmployeeName,
-          employeeImage: i.Image,
-        }));
-
-      setWelcomeData(mappedOnboard);
-
+      setWelcomeData(
+        onboardItems
+          .filter(i => String(i.Status).toLowerCase() === "publish")
+          .map(i => ({
+            id: i.EmployeeID,
+            message: i.Message,
+            employeeName: i.EmployeeName,
+            employeeImage: i.Image,
+          }))
+      );
 
       const recognized = (await getRecognizedEmployees(sp, "RecogonizedEmployee")) ?? [];
       setRecognizedEmployees(
-        recognized.map((item: any) => ({
-          id: item.ID,
-          name: item.EmployeeName,
-          position: item.Designation,
-          department: item.Department,
-          recognition: item.RecogonitionDescription,
-          avatar: item.Image
-        }))
+        recognized
+          .filter((i: any) => String(i.Status).toLowerCase() === "publish")
+          .map((item: any) => ({
+            id: item.ID,
+            name: item.EmployeeName,
+            position: item.Designation,
+            department: item.Department,
+            recognition: item.RecogonitionDescription,
+            avatar: item.Image
+          }))
       );
 
     } catch (err) {
       console.error("Error in LandingPageFull:", err);
     }
   };
+
+
+
+   const service = ThemeSettingsService(sp);
+
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      try {
+        const theme = await service.getTheme();
+        if (!theme) return;
+
+        // Apply CSS variables
+        if (mounted) {
+          const root = document.documentElement;
+          if (theme.PrimaryColor) root.style.setProperty("--primary", theme.PrimaryColor);
+          if (theme.SecondaryColor) root.style.setProperty("--secondary", theme.SecondaryColor);
+          if (theme.AccentColor) root.style.setProperty("--accent", theme.AccentColor);
+          if (theme.BackgroundColor) root.style.setProperty("--background", theme.BackgroundColor);
+
+          // Optionally set body font (if you stored it)
+          // document.body.style.fontFamily = theme.FontFamily || document.body.style.fontFamily;
+        }
+      } catch (err) {
+        console.error("Failed to load theme:", err);
+      }
+    };
+
+    load();
+
+    return () => {
+      mounted = false;
+    };
+  }, [sp]);
 
   return (
     <div className="lp-wrapper">
