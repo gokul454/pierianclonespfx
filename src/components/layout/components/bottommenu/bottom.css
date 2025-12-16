@@ -8,7 +8,6 @@
   color: white;
   position: relative;
   z-index: 1000;
-   background-color:  #131A25;
 }
 
 .copyright {
@@ -58,4 +57,9 @@
 .social-link svg {
   width: 14px;
   height: 14px;
+}
+
+
+.bottom-nav{
+  background-color: var(--primary);
 }

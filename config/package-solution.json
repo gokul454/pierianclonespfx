@@ -27,7 +27,7 @@
     },
     "features": [
       {
-        "title": "pierian-clone-spfx Feature",
+        "title": "Demo_Intranet Feature",
         "description": "The feature that activates elements of the pierian-clone-spfx solution.",
         "id": "653c25fe-dfa8-4b58-8e9b-653eecb5802c",
         "version": "1.0.0.0"
@@ -35,6 +35,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/pierian-clone-spfx.sppkg"
+    "zippedPackage": "solution/Demo_Intranet.sppkg"
   }
 }

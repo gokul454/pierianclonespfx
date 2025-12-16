@@ -10,7 +10,6 @@ import {
   SmileOutlined,
   NotificationOutlined,
   TeamOutlined,
-  SolutionOutlined,
   CrownOutlined,
   LinkOutlined
 } from '@ant-design/icons';
@@ -139,13 +138,13 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
       icon: <TeamOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/employee-directory')
     },
-    {
-      id: 'job-openings-management',
-      title: 'Job Openings Management',
-      description: 'List and manage current job openings.',
-      icon: <SolutionOutlined style={{ color: 'black' }} />,
-      onClick: () => handlePanelClick('admin/job-openings')
-    },
+    // {
+    //   id: 'job-openings-management',
+    //   title: 'Job Openings Management',
+    //   description: 'List and manage current job openings.',
+    //   icon: <SolutionOutlined style={{ color: 'black' }} />,
+    //   onClick: () => handlePanelClick('admin/job-openings')
+    // },
     {
       id: 'bu-heads-management',
       title: 'BU Heads Management',
@@ -160,13 +159,15 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
       icon: <LinkOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/quick-links')
     },
+
+    /* ✅ SETTINGS CARD — SAME PATTERN, NOTHING ELSE TOUCHED */
     {
-      id: 'quick-links-management',
-      title: 'Quick Links Management',
-      description: 'Add, edit, or remove quick access links.',
-      icon: <LinkOutlined style={{ color: 'black' }} />,
-      onClick: () => handlePanelClick('admin/quick-links')
-    }
+      id: 'theme-settings',
+      title: 'Theme Settings',
+      description: 'Customize brand colors, background, and logo.',
+      icon: <ThunderboltOutlined style={{ color: 'black' }} />,
+      onClick: () => handlePanelClick('admin/theme-settings')
+    },
   ];
 
   return (
@@ -202,4 +203,3 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
 };
 
 export default AdminPanel;
-

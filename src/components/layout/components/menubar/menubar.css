@@ -7,7 +7,6 @@
   gap: 14px;
   align-items: center;
   justify-content: space-between;
-  background-color:  #131A25;
 }
 
 .leftSection {
@@ -200,4 +199,9 @@
     max-width: none; /* allow full width for titles */
     font-size: 12px;
   }
+}
+
+
+.menuBar{
+  background-color: var(--primary);
 }

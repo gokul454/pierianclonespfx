@@ -6,10 +6,11 @@ import "./topbar.css";
 
 import { spContext } from "../../../../App";
 import { defaultTenantUrl } from "../../../../utils/constant";
-import { NavBarIcon, TopNavLinks } from "../../../../utils/customSettings";
+import { TopNavLinks } from "../../../../utils/customSettings";
 import { SearchQueryBuilder } from "@pnp/sp/search";
 import Breadcrumbs from "../../../landingpage/Common Breadcrumbs Navigation/Breadcrumbs";
-import Logo from "../../assets/PIE_icon_f8b41a247e0d12221c86.png";
+import { ThemeSettingsService } from "../../../../services/ThemeSettingsService";
+
 
 const TopNav: React.FC = () => {
   const { context, sp } = useContext(spContext);
@@ -75,6 +76,28 @@ const TopNav: React.FC = () => {
     setMenuOpen((prev) => !prev);
   };
 
+
+
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const theme = await ThemeSettingsService(sp).getTheme();
+
+        if (theme.LogoUrl) {
+          document.documentElement.style.setProperty(
+            "--topnav-logo",
+            `url(${theme.LogoUrl})`
+          );
+        }
+      } catch (err) {
+        console.error("Failed to load theme in TopNav", err);
+      }
+    };
+
+    loadTheme();
+  }, [sp]);
+
+
   return (
     <div>
       <div className="top-nav">
@@ -94,15 +117,7 @@ const TopNav: React.FC = () => {
               cursor: "pointer"
             }}
           >
-            <img
-              src={Logo || NavBarIcon}
-              alt="PIE Logo"
-              style={{
-                height: "100%",
-                width: "100%",
-                objectFit: "contain",
-              }}
-            />
+            <div className="top-nav-logo" />
           </div>
 
           <p className="insights-nav">Insights to Impact</p>

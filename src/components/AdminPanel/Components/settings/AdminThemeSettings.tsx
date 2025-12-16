@@ -1,134 +1,140 @@
 import * as React from "react";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useMemo } from "react";
 import { spContext } from "../../../../App";
-import { ThemeSettingsService, ThemeSettings } from "../../../../services/ThemeSettingsService";
+import {
+  ThemeSettingsService,
+  ThemeSettings,
+} from "../../../../services/ThemeSettingsService";
 
 const AdminThemeSettings: React.FC = () => {
   const { sp } = useContext(spContext);
-  const service = ThemeSettingsService(sp);
+  const service = useMemo(() => ThemeSettingsService(sp), [sp]);
 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [saving, setSaving] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   const [form, setForm] = useState<ThemeSettings>({
     PrimaryColor: "#0066ff",
-    SecondaryColor: "#ff6600",
-    AccentColor: "#00cc99",
+    SecondaryColor: "#1f2937",
     BackgroundColor: "#ffffff",
+    TextColor: "#111827",
     LogoUrl: "",
   });
 
   useEffect(() => {
     const load = async () => {
       try {
-        const theme = await service.getTheme();
-        if (theme) setForm(theme);
-      } catch (err) {
-        console.error("Failed to load theme settings:", err);
+        const data = await service.getTheme();
+        setForm(data);
+      } catch (e) {
+        console.error("Failed to load theme settings", e);
       } finally {
         setLoading(false);
       }
     };
     load();
-  }, []);
+  }, [service]);
 
-  const updateField = (key: keyof ThemeSettings, value: string) => {
-    setForm(prev => ({ ...prev, [key]: value }));
-  };
+  const update = (k: keyof ThemeSettings, v: string) =>
+    setForm((p) => ({ ...p, [k]: v }));
 
   const uploadLogo = async (file?: File) => {
     if (!file) return;
     setSaving(true);
     try {
       const url = await service.uploadLogo(file);
-      updateField("LogoUrl", url);
-    } catch (err) {
-      console.error("Upload failed:", err);
-      alert("Logo upload failed.");
+      update("LogoUrl", url);
+    } catch (e) {
+      console.error("Logo upload failed", e);
+      alert("Logo upload failed");
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
   };
 
-  const saveTheme = async () => {
+  const save = async () => {
     setSaving(true);
     try {
       await service.updateTheme(form);
-      alert("Theme updated successfully.");
+
+      // ✅ APPLY THEME IMMEDIATELY (NO RELOAD NEEDED)
+      document.documentElement.style.setProperty("--primary", form.PrimaryColor);
+      document.documentElement.style.setProperty("--secondary", form.SecondaryColor);
+      document.documentElement.style.setProperty("--bg", form.BackgroundColor);
+      document.documentElement.style.setProperty("--text", form.TextColor);
+
+
+      // 🖼️ logo (NEW)
+      if (form.LogoUrl) {
+        document.documentElement.style.setProperty(
+          "--app-logo",
+          `url(${form.LogoUrl})`
+        );
+      }
+
+      alert("Theme updated successfully");
     } catch (err) {
-      console.error("Save failed:", err);
-      alert("Save failed.");
+      console.error("Theme save failed", err);
+    } finally {
+      setSaving(false);
     }
-    setSaving(false);
   };
 
-  if (loading) return <div>Loading theme settings…</div>;
+
+  if (loading) return <div>Loading…</div>;
 
   return (
-    <div style={{ padding: 20, maxWidth: 760 }}>
+    <div style={{ padding: 24, maxWidth: 700 }}>
       <h2>Theme Settings</h2>
 
+      {[
+        ["PrimaryColor", "Primary Color"],
+        ["SecondaryColor", "Secondary Color"],
+        ["BackgroundColor", "Background Color"],
+        ["TextColor", "Text Color"],
+      ].map(([key, label]) => (
+        <div key={key} style={{ marginTop: 12 }}>
+          <label>{label}</label><br />
+          <input
+            type="color"
+            value={form[key as keyof ThemeSettings] as string}
+            onChange={(e) =>
+              update(key as keyof ThemeSettings, e.target.value)
+            }
+          />
+        </div>
+      ))}
+
       <div style={{ marginTop: 16 }}>
-        <label>Primary Color</label>
+        <label>Upload Logo</label><br />
         <input
-          type="color"
-          value={form.PrimaryColor}
-          onChange={(e) => updateField("PrimaryColor", e.target.value)}
-        />
-      </div>
-
-      <div style={{ marginTop: 12 }}>
-        <label>Secondary Color</label>
-        <input
-          type="color"
-          value={form.SecondaryColor}
-          onChange={(e) => updateField("SecondaryColor", e.target.value)}
-        />
-      </div>
-
-      <div style={{ marginTop: 12 }}>
-        <label>Accent Color</label>
-        <input
-          type="color"
-          value={form.AccentColor}
-          onChange={(e) => updateField("AccentColor", e.target.value)}
-        />
-      </div>
-
-      <div style={{ marginTop: 12 }}>
-        <label>Background Color</label>
-        <input
-          type="color"
-          value={form.BackgroundColor}
-          onChange={(e) => updateField("BackgroundColor", e.target.value)}
-        />
-      </div>
-
-      <div style={{ marginTop: 12 }}>
-        <label>Upload Logo</label><br/>
-        <input type="file" accept="image/*"
+          type="file"
+          accept="image/*"
           onChange={(e) => uploadLogo(e.target.files?.[0])}
         />
         {form.LogoUrl && (
-          <div style={{ marginTop: 10 }}>
-            <img src={form.LogoUrl} alt="Logo" style={{ height: 60 }} />
-          </div>
+          <img
+            src={form.LogoUrl}
+            alt="Logo"
+            style={{ height: 60, marginTop: 10 }}
+          />
         )}
       </div>
 
       <button
-        onClick={saveTheme}
+        onClick={save}
         disabled={saving}
         style={{
           marginTop: 20,
+          padding: "10px 20px",
           background: form.PrimaryColor,
           color: "#fff",
-          padding: "10px 20px",
-          borderRadius: 5,
           border: "none",
+          borderRadius: 4,
           cursor: "pointer",
         }}
       >
-        {saving ? "Saving…" : "Save Settings"}
+        {saving ? "Saving…" : "Save Theme"}
       </button>
     </div>
   );

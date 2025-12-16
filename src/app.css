@@ -69,3 +69,14 @@ body, body * {
   /* --------- MISC --------- */
   --avatar-border: rgba(255, 255, 255, 0.12);
 }
+
+
+
+
+:root {
+  --primary: #ff0800;
+  --secondary: #1f2937;
+  --accent: #00cc99;
+  --bg: #ffffff;
+  --app-logo: url("./assets/icons/PIE_icon.png");
+}

@@ -48,6 +48,7 @@ import "./landingpagefull.css";
 import { getLeadershipMessagesItems } from "../../services/adminServices/LeadershipMessagesService/LeadershipMessagesService";
 import { ThemeSettingsService } from "../../services/ThemeSettingsService";
 
+
 const LandingPageFull: React.FC = () => {
   const { sp } = useContext(spContext);
   const navigate = useNavigate();
@@ -78,6 +79,31 @@ const LandingPageFull: React.FC = () => {
   useEffect(() => {
     loadAllData();
   }, []);
+
+  // theme change settings
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const theme = await ThemeSettingsService(sp).getTheme();
+        document.documentElement.style.setProperty("--secondary", theme.SecondaryColor);
+
+        // ✅ LOGO (THIS WAS MISSING)
+        if (theme.LogoUrl) {
+          document.documentElement.style.setProperty(
+            "--app-logo",
+            `url(${theme.LogoUrl})`
+          );
+        }
+        
+      } catch (err) {
+        console.error("Theme load failed in LandingPage", err);
+      }
+
+    };
+
+    loadTheme(); // ✅ THIS WAS MISSING
+  }, [sp]);
+
 
   const loadAllData = async () => {
     try {
@@ -219,37 +245,6 @@ const LandingPageFull: React.FC = () => {
 
 
 
-   const service = ThemeSettingsService(sp);
-
-  useEffect(() => {
-    let mounted = true;
-    const load = async () => {
-      try {
-        const theme = await service.getTheme();
-        if (!theme) return;
-
-        // Apply CSS variables
-        if (mounted) {
-          const root = document.documentElement;
-          if (theme.PrimaryColor) root.style.setProperty("--primary", theme.PrimaryColor);
-          if (theme.SecondaryColor) root.style.setProperty("--secondary", theme.SecondaryColor);
-          if (theme.AccentColor) root.style.setProperty("--accent", theme.AccentColor);
-          if (theme.BackgroundColor) root.style.setProperty("--background", theme.BackgroundColor);
-
-          // Optionally set body font (if you stored it)
-          // document.body.style.fontFamily = theme.FontFamily || document.body.style.fontFamily;
-        }
-      } catch (err) {
-        console.error("Failed to load theme:", err);
-      }
-    };
-
-    load();
-
-    return () => {
-      mounted = false;
-    };
-  }, [sp]);
 
   return (
     <div className="lp-wrapper">
