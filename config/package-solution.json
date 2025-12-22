@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
     "name": "pierian-clone-spfx-client-side-solution",
-    "id": "390cc538-1ad1-4b07-8be8-4921722fb0e5",
+    "id": "cf5cea7a-71e0-434c-a0e6-ca3986e104d2",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
@@ -35,6 +35,6 @@
     ]
   },
   "paths": {
-    "zippedPackage": "solution/Demo_Intranet.sppkg"
+    "zippedPackage": "solution/demo-intranet.sppkg"
   }
 }

@@ -74,15 +74,7 @@
     filter: brightness(0.55);
 }
 
-.lp-carousel-overlay {
-    position: absolute;
-    inset: 0;
-    padding: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    color: #fff;
-}
+
 
 .lp-carousel-left {
     max-width: 62%;
@@ -96,13 +88,7 @@
     margin-bottom: 12px;
 }
 
-.lp-carousel-title {
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 1.02;
-    margin-bottom: 8px;
-    text-shadow: 0 6px 20px rgba(0, 0, 0, .45);
-}
+
 
 .lp-carousel-excerpt {
     color: hsla(0, 0%, 100%, .96);
@@ -119,14 +105,16 @@
 }
 
 .lp-arrow-btn {
-    width: 44px;
-    height: 44px;
-    border: none;
-    background: rgba(255, 255, 255, 0.06);
-    display: flex;
     align-items: center;
-    justify-content: center;
+    background: hsla(0, 0%, 100%, .0);
+    border: none;
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 52px;
+    width: 52px;
+    display: flex;
 }
 
 .lp-arrow-btn img {
@@ -217,9 +205,7 @@
     gap: 12px;
 }
 
-.lp-grid-2col>.lp-card {
-    flex: 1;
-}
+
 
 /* ================= GALLERY ================= */
 .lp-gallery-carousel-wrapper {
@@ -250,12 +236,8 @@
 }
 
 /* ================= RIGHT CONTAINER — SIDEBAR CARDS ================= */
-.lp-leadership {
-   
-    color: #fff;
-    padding: 18px;
-    height: 406px;
-}
+
+
 
 .lp-lead-head {
     display: flex;
@@ -277,16 +259,10 @@
     margin-top: 6px;
     line-height: 1.6;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(0, 0, 0, 0.95);
 }
 
-.lp-lead-footer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: absolute;
-    top: 374px;
-}
+
 
 .lp-lead-avatar {
     width: 44px;
@@ -305,10 +281,7 @@
 }
 
 /* HR Card */
-.lp-hr {
-    padding: 14px;
-    height: 406px;
-}
+
 
 .lp-hr-title {
     font-weight: 700;
@@ -388,21 +361,10 @@
     padding: 10px;
 }
 
-/* CIRCLES */
-.lp-circle {
-    width: 36px;
-    height: 36px;
-    border: none;
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 8px;
-}
 
-.small {
-    font-size: 13px;
-}
+
+
+
 
 /* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 1200px) {
@@ -505,7 +467,7 @@
 
 .lp-card.lp-recognized {
     background-color: #ffffff !important;
-    height: 350px !important;
+    height: 249px !important;
 }
 
 .lp-hr-img {
@@ -695,13 +657,13 @@
 }
 
 .lp-carousel-overlay {
-    position: absolute;
-    inset: 0;
-    padding: 40px;
-    display: flex;
-    justify-content: space-between;
     align-items: flex-end;
     color: #fff;
+    display: flex;
+    inset: 0;
+    justify-content: space-between;
+    padding: 28px;
+    position: absolute;
 }
 
 .lp-carousel-left {
@@ -717,18 +679,16 @@
 }
 
 .lp-carousel-title {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 800;
-    line-height: 1.02;
-    margin-bottom: 8px;
-    text-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 6px 20px rgba(0, 0, 0, .45);
 }
 
 .lp-carousel-excerpt {
     font-size: 15px;
     color: rgba(255, 255, 255, 0.96);
     line-height: 1.5;
-    max-width: 58%;
+    max-width: 100%;
 }
 
 /* arrows */
@@ -738,17 +698,7 @@
     align-items: center;
 }
 
-.lp-arrow-btn {
-    width: 44px;
-    height: 44px;
-    border: none;
-    background: rgba(255, 255, 255, 0.06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-}
+
 
 .lp-arrow-btn img {
     width: 16px;
@@ -836,10 +786,14 @@
 .lp-grid-2col {
     display: flex;
     gap: 12px;
+     color:black !important;
 }
 
 .lp-grid-2col>.lp-card {
     flex: 1;
+    height: 362px;
+    color:black !important;
+    background-color: white !important;
 }
 
 .lp-card .lp-newjoin-red .lp-new-joiners {
@@ -847,7 +801,6 @@
 }
 
 .lp-newjoin-red {
-    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -864,7 +817,7 @@
 }
 
 .lp-jn-name {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 16px;
 }
 
@@ -940,10 +893,9 @@
 
 /* ================= RIGHT CONTAINER — SIDEBAR CARDS ================= */
 .lp-leadership {
-
     color: #fff;
     padding: 18px;
-    height: 406px;
+    height: 370px;
 }
 
 .lp-lead-head {
@@ -958,7 +910,7 @@
 
 .lp-lead-quote {
     font-size: 40px;
-    color: rgba(255, 230, 230, 0.9);
+    color: rgba(0, 0, 0, 0.9);
     margin-top: 8px;
 }
 
@@ -966,15 +918,10 @@
     margin-top: 6px;
     line-height: 1.6;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(0, 0, 0, 0.95);
 }
 
-.lp-lead-footer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 145px;
-}
+
 
 .lp-lead-avatar {
     width: 44px;
@@ -992,11 +939,7 @@
     opacity: 0.9;
 }
 
-/* HR Card */
-.lp-hr {
-    padding: 14px;
-    height: 406px;
-}
+
 
 .lp-hr-title {
     font-weight: 700;
@@ -1013,13 +956,33 @@
 
 /* Welcome onboard gradient */
 .lp-welcome {
+    align-items: center;
     color: #fff;
     display: flex;
     gap: 12px;
-    align-items: center;
+    min-height: 170px;
     padding: 12px;
-    min-height: 240px;
+    background-color: rgb(240, 65, 62);
 }
+
+.lp-welcome-text {
+    display: flex;
+    flex-direction: column;
+    gap: 68px;
+    font-size: 15px;
+}
+
+.lp-welcome-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.lp-welcome-main strong {
+    font-size: 17px;
+}
+
+
+
 
 /* Recognized list */
 .lp-rec-list {
@@ -1081,16 +1044,14 @@
     width: 36px;
     height: 36px;
     border: none;
-    background: rgba(255, 255, 255, 0.08);
+    background: hsla(0, 0%, 100%, .0);
     color: #fff;
     align-items: center;
     cursor: pointer;
     margin-left: 8px;
 }
 
-.small {
-    font-size: 13px;
-}
+
 
 /* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 1200px) {
@@ -1180,7 +1141,7 @@
 }
 
 .lp-leadership .lp-viewall {
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .lp-event-card {
@@ -1193,7 +1154,7 @@
 
 .lp-card.lp-recognized {
     background-color: #ffffff !important;
-    height: 350px !important;
+    height: 239px !important;
 }
 
 .lp-hr-img {
@@ -1206,8 +1167,9 @@
 }
 
 .lp-hr {
+    min-height: 170px;
     position: relative;
-    /* allows absolute positioning inside */
+    padding: 18px;
 }
 
 .lp-hr-nav {
@@ -1219,11 +1181,13 @@
 }
 
 .lp-welcome-thumb {
+
     height: 169px;
-    width: 238px;
+    left: 8px;
     position: relative;
-    top: 35px;
-    left: 12px
+    top: 8px;
+    width: 238px;
+
 }
 
 .lp-new-joiners {
@@ -1311,11 +1275,6 @@
 .lp-latest-news .lp-viewall {
     color: white !important;
 }
-
-.lp-latest-news .lp-section-header h3 {
-    color: white !important;
-}
-
 .lp-new-joiners .lp-viewall {
     color: white !important;
 }
@@ -1345,10 +1304,10 @@
 .lp-lead-title {
     font-size: 18px;
     font-weight: 700;
-    color: #ffffff;
+    color: #000000;
 }
 
-.lp-viewall.small {
+.lp-viewall .small {
     font-size: 12px;
     background: transparent;
     color: #ffffff;
@@ -1364,7 +1323,7 @@
 .lp-lead-quote {
     font-size: 35px;
     font-weight: 700;
-    color: #ffffff;
+    color: rgb(0, 0, 0);
     margin-bottom: -10px;
     margin-left: -2px;
 }
@@ -1374,7 +1333,7 @@
 ============================ */
 .lp-lead-text {
     font-size: 15px;
-    color: #ffffff;
+    color: #000000;
     line-height: 1.5;
     margin-bottom: 18px;
     cursor: pointer;
@@ -1389,19 +1348,16 @@
     overflow: visible;
 }
 
-
-
-
-
-
 /* ============================
    Footer Section
 ============================ */
 .lp-lead-footer {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 12px;
-    margin-top: 10px;
+    justify-content: flex-start;
+    position: sticky;
+    top: 50%;
 }
 
 .lp-lead-avatar {
@@ -1415,38 +1371,22 @@
 .lp-lead-name {
     font-size: 16px;
     font-weight: 600;
-    color: #ffffff;
+    color: #000000;
 }
 
 .lp-lead-role {
     font-size: 13px;
-    color: #ffffff;
+    color: rgb(0, 0, 0);
 }
 
 /* Navigation buttons */
 .lp-lead-nav {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     margin-left: auto;
     justify-content: flex-end;
     position: sticky;
     top: 50%;
-}
-
-.lp-circle.small {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: none;
-    background: #eef0ff;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 12px;
-    transition: 0.2s ease;
-}
-
-.lp-circle.small:hover {
-    background: #dce1ff;
 }
 
 .lead-nav-welcome {
@@ -1502,24 +1442,770 @@
     text-align: right;
 }
 
-
-
-
-
-
-
-
-
-
- .lp-leadership {
-  background-color: var(--secondary) !important;
+.lp-leadership {
+    background-color: var(--secondary) !important;
 }
 
-.lp-welcome {
-  background-color: var(--secondary) !important;
-}
+/* .lp-welcome {
+    background-color: var(--secondary) !important;
+} */
 
 .lp-newjoin-red,
 .lp-new-joiners {
-  background-color: var(--secondary) !important;
+    background-color: var(--secondary) !important;
 }
+
+@media (max-width: 1024px) {
+
+    .lp-left {
+        width: 100% !important;
+    }
+
+    .lp-right {
+        width: 100% !important;
+    }
+
+    .lp-wrapper {
+        gap: 16px;
+    }
+
+    /* Allow tall cards to grow naturally */
+    .lp-event-card,
+    .lp-corporate-card,
+    .lp-new-joiners,
+    .lp-latest-news,
+    .lp-leadership,
+    .lp-hr {
+        height: auto !important;
+    }
+
+    .lp-lead-footer {
+        position: relative;
+        top: auto;
+        margin-top: 16px;
+    }
+}
+
+
+/* ---------- TABLETS (<= 900px) ---------- */
+@media (max-width: 900px) {
+
+    /* Stack layout */
+    .lp-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .lp-right-scroll {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .lp-right {
+        position: static !important;
+    }
+
+    /* Prevent text clipping */
+    .lp-lead-text {
+        -webkit-line-clamp: unset;
+        overflow: visible;
+    }
+
+    /* Gallery becomes 2 columns */
+    .lp-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ---------- MOBILE LARGE (<= 768px) ---------- */
+@media (max-width: 768px) {
+
+    .lp-carousel {
+        height: auto !important;
+        min-height: 260px;
+    }
+
+    .lp-carousel-overlay {
+        padding: 20px;
+    }
+
+    .lp-carousel-title {
+        font-size: 22px;
+    }
+
+    .lp-carousel-excerpt {
+        font-size: 13px;
+        max-width: 100%;
+    }
+
+    /* Sidebar cards spacing */
+    .lp-right>.lp-card {
+        margin-bottom: 12px;
+    }
+
+    /* Images adapt */
+    .lp-corp-main-img,
+    .lp-event-main-img {
+        height: 140px;
+    }
+}
+
+
+/* ---------- MOBILE SMALL (<= 480px) ---------- */
+@media (max-width: 480px) {
+
+    .lp-wrapper {
+        padding: 0 10px;
+    }
+
+    .lp-carousel-title {
+        font-size: 20px !important;
+    }
+
+    .lp-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .lp-gallery-img {
+        height: 160px !important;
+    }
+
+    .lp-welcome {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .lp-welcome-thumb {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .lp-lead-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+/* ================================
+   Recognized Employees – Carousel
+================================ */
+
+.lp-recognized {
+    background: linear-gradient(180deg,
+            #0e1623 0%,
+            #0a1220 100%);
+    padding: 20px;
+    color: #ffffff;
+}
+
+/* Header */
+.lp-rec-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.lp-rec-head h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    color: #ffffff;
+}
+
+.lp-rec-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Circle Arrow Buttons */
+.lp-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lp-circle:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.lp-circle:active {
+    transform: scale(0.94);
+}
+
+/* Carousel Body */
+.lp-rec-carousel {
+    padding: 12px 4px;
+}
+
+/* Profile Row */
+.lp-rec-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.lp-rec-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Name & Role */
+.lp-rec-name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+.lp-rec-role {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Recognition Text */
+.lp-rec-description {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 18px;
+}
+
+/* Footer */
+.lp-rec-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+/* View All Button */
+.View-all-red {
+    background: transparent;
+    border: none;
+    color: #ff5a5a;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+}
+
+.View-all-red:hover {
+    text-decoration: underline;
+}
+
+/* Empty State */
+.lp-rec-empty {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 12px 0;
+}
+
+/* Small variant */
+.small {
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.job-openings-container {
+    background: var(--job-openings-bg-color);
+    border: none;
+    padding: 16px;
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 400px;
+    min-height: 260px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.job-openings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.job-openings-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
+.job-openings-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.job-openings-item {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.job-openings-info {
+    flex: 1;
+}
+
+.job-openings-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.job-openings-experience,
+.job-openings-location,
+.job-openings-description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: white;
+    margin: 2px 0;
+    line-height: 1.5;
+}
+
+.job-openings-empty {
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    font-size: 13px;
+}
+
+.job-openings-nav {
+    display: flex;
+    justify-content: end;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.job-openings-nav-btn {
+    background: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.job-openings-nav-btn:hover {
+    background: transparent;
+    transform: scale(1.05);
+}
+
+.lp-job-view-all-btn {
+   color: white;
+}
+
+/* ---------------- Responsive Design ---------------- */
+
+@media (max-width: 768px) {
+    .job-openings-container {
+        padding: 12px;
+        margin: 10px auto;
+    }
+
+    .job-openings-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .job-openings-title {
+        font-size: 13px;
+    }
+
+    .job-openings-experience,
+    .job-openings-location,
+    .job-openings-description {
+        font-size: 11.5px;
+    }
+
+    .job-openings-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .job-openings-header h3 {
+        font-size: 16px;
+    }
+
+    .job-openings-title {
+        font-size: 12px;
+    }
+
+    .job-openings-experience,
+    .job-openings-location,
+    .job-openings-description {
+        font-size: 11px;
+    }
+
+    .job-openings-nav-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+
+    .job-openings-empty {
+        font-size: 12px;
+    }
+}
+
+/* Tablet (768px to 1148px) */
+@media (min-width: 768px) and (max-width: 1148px) {
+    .job-openings-container {
+        max-width: none;
+        /* remove restriction if applied */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DescriptionBoard.css */
+
+.description-board {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    height: 444px;
+    max-width: 400px;
+}
+
+.board-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 16px 0;
+}
+
+.description-card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.description-card .ant-card-body {
+    padding: 0;
+}
+
+.description-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.description-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.description-content {
+    text-align: left;
+    max-width: 352px;
+    overflow: hidden;
+}
+
+.description-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.description-text {
+    font-size: 14px;
+    color: #595959;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.read-more-btn {
+    color: #1890ff;
+    font-weight: 500;
+    padding: 0;
+}
+
+.read-more-btn:hover {
+    color: #40a9ff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .description-image {
+        height: 150px;
+    }
+
+    .description-board {
+        padding: 16px;
+    }
+
+    .description-content {
+        max-width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================
+   Card Wrapper
+================================ */
+.lp-gallery-og {
+  height: 253px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================
+   Section Header
+================================ */
+.lp-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.lp-section-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.lp-viewall {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ================================
+   Carousel Wrapper
+================================ */
+.lp-gallery-carousel-wrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
+/* ================================
+   Gallery Grid (4 items)
+================================ */
+.lp-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+/* ================================
+   Image / Video
+================================ */
+.lp-gallery-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f3f4f6;
+  display: block;
+}
+
+/* ================================
+   Video Overlay
+================================ */
+.lp-gallery video.lp-gallery-img {
+  position: relative;
+  background: #000;
+}
+
+.lp-gallery video.lp-gallery-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+
+/* ================================
+   Navigation Buttons
+================================ */
+.lp-gallery-nav {
+  position: absolute;
+  right: 0;
+  bottom: -38px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lp-circle.small {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-circle.small:hover svg circle {
+  stroke-opacity: 0.55;
+}
+
+.lp-circle.small:active {
+  transform: scale(0.95);
+}
+
+/* ================================
+   Empty State
+================================ */
+.lp-gallery-empty {
+  font-size: 13px;
+  color: #6b7280;
+}
+

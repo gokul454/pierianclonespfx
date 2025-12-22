@@ -33,21 +33,66 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
         <div className="lp-carousel-controls">
           <button
             className="lp-arrow-btn"
-            onClick={() =>
-              setIdx((idx - 1 + slides.length) % slides.length)
-            }
+            onClick={() => setIdx((idx - 1 + slides.length) % slides.length)}
+            aria-label="Previous slide"
           >
-            Prev
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.5"
+                y="0.5"
+                width="39"
+                height="39"
+                rx="19.5"
+                stroke="white"
+                strokeOpacity="0.3"
+              />
+              <path
+                d="M22.3359 24.6654L17.6693 19.9987L22.3359 15.332"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
 
           <button
             className="lp-arrow-btn"
-            onClick={() =>
-              setIdx((idx + 1) % slides.length)
-            }
+            onClick={() => setIdx((idx + 1) % slides.length)}
+            aria-label="Next slide"
           >
-            Next
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.5"
+                y="0.5"
+                width="39"
+                height="39"
+                rx="19.5"
+                stroke="white"
+                strokeOpacity="0.3"
+              />
+              <path
+                d="M17.6641 15.3346L22.3307 20.0013L17.6641 24.668"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
+
         </div>
       </div>
     </div>

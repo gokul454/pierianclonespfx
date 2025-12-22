@@ -104,11 +104,12 @@ export interface GalleryItemType {
 }
 
 export interface DiscussionBoardType {
-  id: number;
+  id: string;        // ✅ FIXED
   title: string;
   description: string;
   image: string;
 }
+
 
 export interface HeroSlide {
   id: string;

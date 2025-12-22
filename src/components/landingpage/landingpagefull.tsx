@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Carousel from "./components/Carousel";
 import CorporateNews from "./components/CorporateNews";
 import Events from "./components/Events";
@@ -12,7 +11,9 @@ import LeadershipMessage from "./components/LeadershipMessage";
 import HrAnnouncements from "./components/HrAnnouncements";
 import WelcomeOnboard from "./components/WelcomeOnboard";
 import RecognizedEmployees from "./components/RecognizedEmployees";
-import QuickLinks from "./components/QuickLinks";
+// import QuickLinks from "./components/QuickLinks";
+import JobOpenings from './components/JobOpenings';
+import DescriptionBoard from './components/DiscussionBoard';
 
 import {
   getCarousalData,
@@ -23,8 +24,10 @@ import {
   getNewgetOnboardEmployee,
   getNewJoiners,
   getNewsEvents,
-  getQuickLinksData,
+  // getQuickLinksData,
   getRecognizedEmployees,
+  getJobOpeningsData,
+  getDiscussionBoard
 } from "../../services/service";
 
 import {
@@ -36,9 +39,11 @@ import {
   LeadershipMessageType,
   NewJoinerType,
   NewsEventType,
-  QuickLinkType,
+  // QuickLinkType,
   RecognizedEmployeeType,
-  WelcomeMessageType
+  WelcomeMessageType,
+  DiscussionBoardType,
+
 } from "../../utils/types";
 
 import { spContext } from "../../App";
@@ -71,7 +76,12 @@ const LandingPageFull: React.FC = () => {
   const [hrData, setHrData] = useState<HRAnnouncementType[]>([]);
   const [welcomeData, setWelcomeData] = useState<WelcomeMessageType[]>([]);
   const [recognizedEmployees, setRecognizedEmployees] = useState<RecognizedEmployeeType[]>([]);
-  const [quickLinks, setQuickLinks] = useState<QuickLinkType[]>([]);
+  // const [quickLinks, setQuickLinks] = useState<QuickLinkType[]>([]);
+  const [jobOpenings, setJobOpenings] = useState<any[]>([]);
+  const [discussionBoardData, setDiscussionBoardData] =
+    useState<DiscussionBoardType[]>([]);
+
+
 
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -94,7 +104,7 @@ const LandingPageFull: React.FC = () => {
             `url(${theme.LogoUrl})`
           );
         }
-        
+
       } catch (err) {
         console.error("Theme load failed in LandingPage", err);
       }
@@ -200,17 +210,50 @@ const LandingPageFull: React.FC = () => {
           }))
       );
 
-      const quickLinkItems = await getQuickLinksData(sp, "QuickLinks");
-      if (Array.isArray(quickLinkItems)) {
-        setQuickLinks(
-          quickLinkItems.map((item: any) => ({
-            id: item.Id,
-            url: item.CustomURL,
-            label: item.Label,
-            tooltip: item.Tooltip
-          }))
-        );
-      }
+      // const quickLinkItems = await getQuickLinksData(sp, "QuickLinks");
+      // if (Array.isArray(quickLinkItems)) {
+      //   setQuickLinks(
+      //     quickLinkItems.map((item: any) => ({
+      //       id: item.Id,
+      //       url: item.CustomURL,
+      //       label: item.Label,
+      //       tooltip: item.Tooltip
+      //     }))
+      //   );
+      // }
+
+
+      // ⭐ Job Openings
+      const jobs = (await getJobOpeningsData(sp, "JobOpenings")) ?? [];
+
+      setJobOpenings(
+        jobs.map((job: any) => ({
+          id: String(job.Id),
+          title: job.jobTitle,
+          experience: job.experience,
+          location: job.location,
+          dateposted: job.DatePosted,
+          description: job.JobDescription
+        }))
+      );
+
+
+      // ⭐ Discussion Board
+      const discussionItems = (await getDiscussionBoard(sp, "DiscussionBoard")) ?? [];
+
+      setDiscussionBoardData(
+        discussionItems.map(
+          (item: any): DiscussionBoardType => ({
+            id: String(item.Id),
+            title: item.Title,
+            description: item.Description,
+            image: item.Image || ""
+          })
+        )
+      );
+
+
+
 
       const onboardItems = (await getNewgetOnboardEmployee(sp, "EmployeeOnboard")) ?? [];
       setWelcomeData(
@@ -225,18 +268,22 @@ const LandingPageFull: React.FC = () => {
       );
 
       const recognized = (await getRecognizedEmployees(sp, "RecogonizedEmployee")) ?? [];
+
       setRecognizedEmployees(
         recognized
-          .filter((i: any) => String(i.Status).toLowerCase() === "publish")
+          .filter((i: any) =>
+            String(i.Status).toLowerCase().includes("publish")
+          )
           .map((item: any) => ({
-            id: item.ID,
+            id: item.Id, // ✅ correct SharePoint field
             name: item.EmployeeName,
             position: item.Designation,
             department: item.Department,
             recognition: item.RecogonitionDescription,
-            avatar: item.Image
+            avatar: item.Image?.Url || item.Image || ""
           }))
       );
+
 
     } catch (err) {
       console.error("Error in LandingPageFull:", err);
@@ -273,10 +320,19 @@ const LandingPageFull: React.FC = () => {
       <div className="lp-right-scroll">
         <aside className="lp-right" ref={rightRef}>
           <LeadershipMessage data={leadershipData} />
-          <HrAnnouncements data={hrData} />
           <WelcomeOnboard data={welcomeData} />
+          <HrAnnouncements data={hrData} />
           <RecognizedEmployees data={recognizedEmployees} />
-          <QuickLinks quickLinks={quickLinks} />
+          <DescriptionBoard
+            data={discussionBoardData[0]}
+            id={discussionBoardData[0]?.id}
+            listName="DiscussionBoard"
+          />
+
+          <JobOpenings
+            jobOpenings={jobOpenings}
+            onViewAll={() => navigate("/listing/JobOpenings")}
+          />
         </aside>
       </div>
     </div>

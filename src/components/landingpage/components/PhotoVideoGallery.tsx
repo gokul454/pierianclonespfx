@@ -34,14 +34,13 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
     ? items.slice(index, index + ITEMS_PER_PAGE)
     : [];
 
-  // ⭐ DETAIL PAGE HANDLER
   const openDetail = (id: any) => {
     if (!id) return;
     navigate(`/detail/VideoGalleryLibrary/${id}`);
   };
 
   return (
-    <div className="lp-card">
+    <div className="lp-card lp-gallery-og">
       <div className="lp-section-header">
         <h3>Photo Video Gallery</h3>
         <button
@@ -53,8 +52,6 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
       </div>
 
       <div className="lp-gallery-carousel-wrapper">
-        <button className="lp-gallery-arrow" onClick={prev}>◀</button>
-
         <div className="lp-gallery">
           {visibleItems.length > 0 ? (
             visibleItems.map((item) =>
@@ -64,8 +61,8 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
                   src={item.url}
                   className="lp-gallery-img"
                   controls
-                  onClick={() => openDetail(item.id)}   // ⭐ CLICK
-                  style={{ cursor: "pointer" }}         // ⭐ no UI change, just interaction
+                  onClick={() => openDetail(item.id)}
+                  style={{ cursor: "pointer" }}
                 />
               ) : (
                 <img
@@ -73,17 +70,64 @@ const PhotoVideoGallery: React.FC<PhotoVideoGalleryProps> = ({ items }) => {
                   src={item.url}
                   alt={item.description}
                   className="lp-gallery-img"
-                  onClick={() => openDetail(item.id)}   // ⭐ CLICK
-                  style={{ cursor: "pointer" }}         // ⭐ no UI change
+                  onClick={() => openDetail(item.id)}
+                  style={{ cursor: "pointer" }}
                 />
               )
             )
           ) : (
-            <div className="lp-gallery-empty">No gallery items available.</div>
+            <div className="lp-gallery-empty">
+              No gallery items available.
+            </div>
           )}
         </div>
 
-        <button className="lp-gallery-arrow" onClick={next}>▶</button>
+        <div className="lp-gallery-nav">
+          <button className="lp-circle small" onClick={next} aria-label="Next">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <circle
+                opacity="0.4"
+                cx="20"
+                cy="20"
+                r="19.5"
+                transform="matrix(-1 0 0 1 40 0)"
+                stroke="black"
+                strokeOpacity="0.3"
+              />
+              <path
+                d="M22.5 25L17.5 20L22.5 15"
+                stroke="black"
+                strokeWidth="1.875"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+
+          <button
+            className="lp-circle small"
+            onClick={prev}
+            aria-label="Previous"
+          >
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <circle
+                opacity="0.4"
+                cx="20"
+                cy="20"
+                r="19.5"
+                stroke="black"
+                strokeOpacity="0.3"
+              />
+              <path
+                d="M17.5 25L22.5 20L17.5 15"
+                stroke="black"
+                strokeWidth="1.875"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

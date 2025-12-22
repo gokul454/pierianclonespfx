@@ -193,6 +193,8 @@ const MenuBar: React.FC = () => {
                                 </div>
                                 <p className="appTitle">{app.title}</p>
                             </div>
+
+                            
                         )
                     )}
 

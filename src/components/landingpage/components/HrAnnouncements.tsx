@@ -10,7 +10,7 @@ interface HrAnnouncementsProps {
 
 const HrAnnouncements: React.FC<HrAnnouncementsProps> = ({ data }) => {
   const hasData = Array.isArray(data) && data.length > 0;
-  const [index, setIndex] = useState(0);
+  const [index, ] = useState(0);
   const navigate = useNavigate();
 
   if (!hasData) {
@@ -26,11 +26,11 @@ const HrAnnouncements: React.FC<HrAnnouncementsProps> = ({ data }) => {
 
   const current = data[index];
 
-  const handlePrev = () =>
-    setIndex((index - 1 + data.length) % data.length);
+  // const handlePrev = () =>
+  //   setIndex((index - 1 + data.length) % data.length);
 
-  const handleNext = () =>
-    setIndex((index + 1) % data.length);
+  // const handleNext = () =>
+  //   setIndex((index + 1) % data.length);
 
   // ⭐ navigate to DETAIL PAGE on card click
   const openDetail = () => {
@@ -45,12 +45,12 @@ const HrAnnouncements: React.FC<HrAnnouncementsProps> = ({ data }) => {
         <h3>HR Announcements</h3>
 
         {/* ⭐ VIEW ALL CLICK HANDLER */}
-        <button
+        {/* <button
           className="lp-viewall"
           onClick={() => navigate("/listing/HRAnnouncements")}
         >
           View all ➜
-        </button>
+        </button> */}
       </div>
 
       <div className="lp-hr-img">
@@ -66,14 +66,14 @@ const HrAnnouncements: React.FC<HrAnnouncementsProps> = ({ data }) => {
         <p className="lp-hr-text">{current.description}</p>
       </div>
 
-      <div className="lp-hr-nav">
+      {/* <div className="lp-hr-nav">
         <button className="lp-circle lp-hr-button small" onClick={handlePrev}>
           ◀
         </button>
         <button className="lp-circle lp-hr-button small" onClick={handleNext}>
           ▶
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

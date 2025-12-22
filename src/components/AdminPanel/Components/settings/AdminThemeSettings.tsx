@@ -20,6 +20,8 @@ const AdminThemeSettings: React.FC = () => {
     TextColor: "#111827",
     LogoUrl: "",
   });
+  const logoUrlRef = React.useRef<string>("");
+
 
   useEffect(() => {
     const load = async () => {
@@ -40,10 +42,16 @@ const AdminThemeSettings: React.FC = () => {
 
   const uploadLogo = async (file?: File) => {
     if (!file) return;
+
     setSaving(true);
     try {
       const url = await service.uploadLogo(file);
-      update("LogoUrl", url);
+
+      // ✅ store synchronously
+      logoUrlRef.current = url;
+
+      // UI preview only
+      setForm(prev => ({ ...prev, LogoUrl: url }));
     } catch (e) {
       console.error("Logo upload failed", e);
       alert("Logo upload failed");
@@ -52,23 +60,30 @@ const AdminThemeSettings: React.FC = () => {
     }
   };
 
+
   const save = async () => {
     setSaving(true);
     try {
-      await service.updateTheme(form);
+      const payload: ThemeSettings = {
+        PrimaryColor: form.PrimaryColor,
+        SecondaryColor: form.SecondaryColor,
+        BackgroundColor: form.BackgroundColor,
+        TextColor: form.TextColor,
+        LogoUrl: logoUrlRef.current || "" // ✅ GUARANTEED VALUE
+      };
 
-      // ✅ APPLY THEME IMMEDIATELY (NO RELOAD NEEDED)
-      document.documentElement.style.setProperty("--primary", form.PrimaryColor);
-      document.documentElement.style.setProperty("--secondary", form.SecondaryColor);
-      document.documentElement.style.setProperty("--bg", form.BackgroundColor);
-      document.documentElement.style.setProperty("--text", form.TextColor);
+      await service.updateTheme(payload);
 
+      // apply instantly
+      document.documentElement.style.setProperty("--primary", payload.PrimaryColor);
+      document.documentElement.style.setProperty("--secondary", payload.SecondaryColor);
+      document.documentElement.style.setProperty("--bg", payload.BackgroundColor);
+      document.documentElement.style.setProperty("--text", payload.TextColor);
 
-      // 🖼️ logo (NEW)
-      if (form.LogoUrl) {
+      if (payload.LogoUrl) {
         document.documentElement.style.setProperty(
           "--app-logo",
-          `url(${form.LogoUrl})`
+          `url(${payload.LogoUrl})`
         );
       }
 

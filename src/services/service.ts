@@ -411,7 +411,8 @@ export const getRecognizedEmployees = async (
         Department: employee?.Department || '',
         RecogonitionDescription: item.RecogonitionDescription || '',
         RecogonitionDate: item.RecogonitionDate || '',
-        Image: employee?.ProfilePicture1 || ''
+        Image: employee?.ProfilePicture1 || '',
+        Status: employee?.Status
       };
     });
   } catch (err) {

@@ -10,3 +10,6 @@ export const Site_Name = pathParts[0] === "sites" ? pathParts[1] : "";
 
 console.log(Site_Name,"Site_Name")
 
+export const dev_css_url = "/SiteAssets/css/developer.css";
+
+

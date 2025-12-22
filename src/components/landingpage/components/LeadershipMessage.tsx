@@ -39,9 +39,7 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
   };
 
   // ⭐ Navigate to LISTING page
-  const handleViewAll = () => {
-    navigate("/listing/LeadershipMessage");
-  };
+
 
   // ⭐ Navigate to DETAIL page
   const handleClick = (id?: number) => {
@@ -56,12 +54,6 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
     <div className="lp-card lp-leadership">
       <div className="lp-lead-head">
         <div className="lp-lead-title">Leadership Message</div>
-
-        {hasData && (
-          <button className="lp-viewall small" onClick={handleViewAll}>
-            View all ➜
-          </button>
-        )}
       </div>
 
       <div className="lp-lead-quote">“</div>
@@ -71,7 +63,7 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
         <p
           className="lp-lead-text"
           onClick={() => handleClick(current?.id)}
-          style={{ cursor: "pointer" }} // ← does NOT change UI, only improves UX
+          style={{ cursor: "pointer" }} 
         >
           {current?.message}
         </p>
@@ -95,12 +87,59 @@ const LeadershipMessage: React.FC<LeadershipMessageProps> = ({ data }) => {
         </div>
       )}
       <div className="lp-lead-nav">
-        <button className="lp-circle small" onClick={prev}>
-          ◀
+        <button className="lp-circle small" onClick={next} aria-label="Next">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              opacity="0.4"
+              cx="20"
+              cy="20"
+              r="19.5"
+              transform="matrix(-1 0 0 1 40 0)"
+              stroke="black"
+              strokeOpacity="0.3"
+            />
+            <path
+              d="M22.5 25L17.5 20L22.5 15"
+              stroke="black"
+              strokeWidth="1.875"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
-        <button className="lp-circle small" onClick={next}>
-          ▶
+
+        <button className="lp-circle small" onClick={prev} aria-label="Previous">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              opacity="0.4"
+              cx="20"
+              cy="20"
+              r="19.5"
+              stroke="black"
+              strokeOpacity="0.3"
+            />
+            <path
+              d="M17.5 25L22.5 20L17.5 15"
+              stroke="black"
+              strokeWidth="1.875"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
+
       </div>
     </div>
   );

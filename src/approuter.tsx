@@ -25,6 +25,9 @@ const QuickLinkManagement = lazy(() => import("./components/AdminPanel/Component
 
 // ⭐ ADD THEME SETTINGS (Final correct import)
 const ThemeSettingsManagement = lazy(() => import("./components/AdminPanel/Components/settings/AdminThemeSettings"));
+const JobOpeningsManagement = lazy( () => import("./components/AdminPanel/Components/JobOpenings/Index"));
+const DescriptionBoard = lazy( () => import("./components/AdminPanel/Components/DescriptionBoard/Index"));
+
 
 export default function AppRouter() {
   const { sp } = useContext(spContext);
@@ -62,13 +65,16 @@ export default function AppRouter() {
       { path: "admin/leadership-messages", element: <LeadershipMessagesManagement /> },
       { path: "admin/recognized-employee", element: <RecognizedEmployeeManagement /> },
       { path: "admin/welcome-data", element: <WelcomeDataManagement /> },
-      { path: "admin/employee-directory"  , element: <EmployeeDirectoryManagement /> },
+      { path: "admin/employee-directory", element: <EmployeeDirectoryManagement /> },
       { path: "admin/carousel-data", element: <CarouselDataManagement /> },
       { path: "admin/hr-announcement", element: <HRAnnouncementManagement /> },
       { path: "admin/photo-video-gallery", element: <PhotoVideoGalleryManagement /> },
       { path: "admin/bu-heads", element: <BUHeadsManagement /> },
       { path: "admin/quick-links", element: <QuickLinkManagement /> },
-      { path: "admin/theme-settings", element: <ThemeSettingsManagement /> }
+      { path: "admin/theme-settings", element: <ThemeSettingsManagement /> },
+      { path: "admin/job-openings", element: <JobOpeningsManagement /> },
+      { path: "admin/Description-Onboard", element: <DescriptionBoard /> }
+
     );
   }
 

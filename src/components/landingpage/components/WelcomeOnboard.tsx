@@ -31,19 +31,19 @@ const WelcomeOnboard: React.FC<WelcomeOnboardProps> = ({ data = [] }) => {
   const current = data[index];
 
   // Prev & Next logic (same as 1st code)
-  const prev = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
-  };
+  // const prev = () => {
+  //   setIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
+  // };
 
-  const next = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % data.length);
-  };
+  // const next = () => {
+  //   setIndex((prevIndex) => (prevIndex + 1) % data.length);
+  // };
 
   return (
     <div className="lp-card lp-welcome">
 
       {/* Text Section */}
-      <div>
+      <div className="lp-welcome-text">
         <div className="lp-welcome-sub">
           {current?.message ?? "No message"}
         </div>
@@ -64,12 +64,12 @@ const WelcomeOnboard: React.FC<WelcomeOnboardProps> = ({ data = [] }) => {
       )}
 
       {/* Navigation Buttons */}
-      {data.length > 1 && (
+      {/* {data.length > 1 && (
         <div className=" lead-nav-welcome">
           <button className="lp-circle small" onClick={prev}>◀</button>
           <button className="lp-circle small" onClick={next}>▶</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

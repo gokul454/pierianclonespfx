@@ -11,7 +11,8 @@ import {
   NotificationOutlined,
   TeamOutlined,
   CrownOutlined,
-  LinkOutlined
+  LinkOutlined,
+  SolutionOutlined
 } from '@ant-design/icons';
 import './AdminPanel.css';
 import { useNavigate } from 'react-router-dom';
@@ -138,13 +139,13 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
       icon: <TeamOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/employee-directory')
     },
-    // {
-    //   id: 'job-openings-management',
-    //   title: 'Job Openings Management',
-    //   description: 'List and manage current job openings.',
-    //   icon: <SolutionOutlined style={{ color: 'black' }} />,
-    //   onClick: () => handlePanelClick('admin/job-openings')
-    // },
+    {
+      id: 'job-openings-management',
+      title: 'Job Openings Management',
+      description: 'List and manage current job openings.',
+      icon: <SolutionOutlined style={{ color: 'black' }} />,
+      onClick: () => handlePanelClick('admin/job-openings')
+    },
     {
       id: 'bu-heads-management',
       title: 'BU Heads Management',
@@ -167,6 +168,13 @@ const AdminPanel: React.FC<AdminPanelProps> = () => {
       description: 'Customize brand colors, background, and logo.',
       icon: <ThunderboltOutlined style={{ color: 'black' }} />,
       onClick: () => handlePanelClick('admin/theme-settings')
+    },
+    {
+      id: 'Description-Onboard',
+      title: 'Description Board',
+      description: 'Customize brand colors, background, and logo.',
+      icon: <ThunderboltOutlined style={{ color: 'black' }} />,
+      onClick: () => handlePanelClick('admin/Description-Onboard')
     },
   ];
 

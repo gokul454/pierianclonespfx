@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "88b828ce-b039-4923-988d-0b17cd273d64",
+  "id": "e1f36f53-e3b0-423e-a16c-ce877254b6b2",
   "alias": "PierianWebPart",
   "componentType": "WebPart",
 
@@ -14,11 +14,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
     "group": { "default": "Advanced" },
-    "title": { "default": "Demo_Intranet" },
+    "title": { "default": "demo_intranet" },
     "description": { "default": "Demo_Intranet description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Demo_Intranet"
+      "description": "demo_intranet"
     }
   }]
 }
